@@ -41,10 +41,31 @@ function hashWithSha1(text) {
   // ? Step 7 Add x64 Summation Bits To Original Text
   bitsText += binaryOfSummationBitsx64;
 
-  // ? Step 8 : 
+  // ? Step 8 : Split Text Into Words 32 Bit
+  let splitedWords = [];
+  let splitLength = bitsText.length / 32;
+  for (let i = 0; i < splitLength; i++) {
+    splitedWords.push(bitsText.slice(i * 32, (i + 1) * 32));
+  }
 
-  console.log(bitsText);
-  console.log(bitsText.length);
+  // ? Step 9: We extend 16 Word to reach 80 word
+  for (let w = 16; w < 80; w++) {
+    let xorResult =
+      parseInt(splitedWords[w - 3], 2) ^
+      parseInt(splitedWords[w - 8], 2) ^
+      parseInt(splitedWords[w - 14], 2) ^
+      parseInt(splitedWords[w - 16], 2);
+
+    console.log(
+      `W${w}`,
+      (((xorResult << 1) | (xorResult >>> 31)) >>> 0).toString(2)
+    );
+  }
+
+  // console.log(bitsText);
+  // console.log(bitsText.length);
+  // console.log(words);
+
   return "Until Not Hashed";
 }
 

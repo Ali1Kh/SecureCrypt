@@ -122,7 +122,6 @@ function hashWithSha1() {
   let hashValue =
     toHexa(h0) + toHexa(h1) + toHexa(h2) + toHexa(h3) + toHexa(h4);
   sha1OutputText.value = hashValue;
-  console.log(hashValue);
 
   return hashValue;
 }

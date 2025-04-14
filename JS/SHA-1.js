@@ -63,7 +63,7 @@ function hashWithSha1(text) {
   }
 
   // ? Step 10 : Make each 20 words of 80 are collected in one function to get 4 functions
-
+  
   
 
   // console.log(bitsText);

@@ -1,101 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="CSS/SHA-1.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="CSS/SHA-1.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SecureCrypt</title>
-    <link rel="icon" type="" href="images/lock.png">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=content_copy" />
-</head>
+    <link rel="icon" type="" href="images/lock.png" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=content_copy"
+    />
+  </head>
 
-<body>
-
-
+  <body>
     <div class="nav-bar">
+      <div class="lock">
+        <img src="images/lock.png" alt="Logo" />
+        <p class="text-icone"><samp>Secure</samp>Crypt</p>
+      </div>
 
-        <div class="lock">
-            <img src="images/lock.png" alt="Logo">
-            <p class="text-icone"><samp>Secure</samp>Crypt</p>
-        </div>
-
-
-        <div class="nav-links">
-            <a href="">Home</a>
-            <a href="http://127.0.0.1:5500/SHA-1.html" class="active">SHA-1</a>
-            <a href="http://127.0.0.1:5500/RSA.html">RSA</a>
-            <a href="http://127.0.0.1:5500/CTR.html">CTR</a>
-        </div>
-
-
+      <div class="nav-links">
+        <a href="">Home</a>
+        <a href="http://127.0.0.1:5500/SHA-1.html" class="active">SHA-1</a>
+        <a href="http://127.0.0.1:5500/RSA.html">RSA</a>
+        <a href="http://127.0.0.1:5500/CTR.html">CTR</a>
+      </div>
     </div>
-
 
     <div class="main-screen">
+      <div class="main-text">
+        <h1>SHA-1 Hash</h1>
+      </div>
 
-        <div class="main-text">
-            <h1>SHA-1 Hash</h1>
+      <div class="coun">
+        <div class="box">
+          <div class="inbox">
+            <div class="text-box">
+              <h1>Generate Hash</h1>
+              <p class="sc-text-inBox">Create SHA-1 hash from input text</p>
+              <p class="bold-text-inBox">Input Text</p>
+
+              <textarea
+                class="hash-textarea"
+                name=""
+                id=""
+                placeholder="Enter text to hash"
+              ></textarea>
+              <p class="finaly-text-inBox">Generated SHA-1 Hash</p>
+
+              <div class="textarea-wrapper">
+                <textarea
+                  class="textarea-copyHash"
+                  placeholder="Hash will appear here"
+                ></textarea>
+                <!-- <button class="copy-btn">Copy Hash</button> -->
+                <span class="material-symbols-outlined">content_copy</span>
+              </div>
+
+              <button class="Generate-btu" type="button">Generate Hash</button>
+            </div>
+          </div>
         </div>
 
-        <div class="coun">
+        <div class="box">
+          <div class="inbox">
+            <div class="text-box">
+              <h1>Verify Hash</h1>
+              <p class="sc-text-inBox">
+                Verify if a hash matches the input text
+              </p>
+              <p class="bold-text-inBox">Input Text</p>
 
-            <div class="box">
-                <div class="inbox">
+              <textarea
+                class="hash-textarea"
+                name=""
+                id=""
+                placeholder="Enter text to verify"
+              ></textarea>
+              <p class="finaly-text-inBox">SHA-1 Hash to Verify</p>
 
-                    <div class="text-box">
-                        <h1>Generate Hash</h1>
-                        <p class="sc-text-inBox">Create SHA-1 hash from input text</p>
-                        <p class="bold-text-inBox">Input Text</p>
+              <div class="textarea-wrapper">
+                <textarea
+                  class="textarea-copyHash"
+                  placeholder="Enter hash to verify against"
+                ></textarea>
+                <!-- <button class="copy-btn">Verify Hash</button> -->
+              </div>
 
-                        <textarea class="hash-textarea" name="" id="" placeholder="Enter text to hash"></textarea>
-                        <p class="finaly-text-inBox">Generated SHA-1 Hash</p>
-
-                        <div class="textarea-wrapper">
-                            <textarea class="textarea-copyHash" placeholder="Hash will appear here"></textarea>
-                            <!-- <button class="copy-btn">Copy Hash</button> -->
-                            <span class="material-symbols-outlined">content_copy</span>
-                        </div>
-
-                        <button class="Generate-btu" type="button">Generate Hash</button>
-
-                    </div>
-
-
-
-                </div>
+              <button class="Generate-btu" type="button">Generate Hash</button>
             </div>
-
-            <div class="box">
-                <div class="inbox">
-
-                    <div class="text-box">
-                        <h1>Verify Hash</h1>
-                        <p class="sc-text-inBox">Verify if a hash matches the input text</p>
-                        <p class="bold-text-inBox">Input Text</p>
-
-                        <textarea class="hash-textarea" name="" id="" placeholder="Enter text to verify"></textarea>
-                        <p class="finaly-text-inBox">SHA-1 Hash to Verify</p>
-
-                        <div class="textarea-wrapper">
-                            <textarea class="textarea-copyHash" placeholder="Enter hash to verify against"></textarea>
-                            <!-- <button class="copy-btn">Verify Hash</button> -->
-                        </div>
-
-                        <button class="Generate-btu" type="button">Generate Hash</button>
-
-                    </div>
-
-
-
-                </div>
-            </div>
-
-
+          </div>
         </div>
-
+      </div>
     </div>
-</body>
-
+    <script src="JS/SHA-1.js"></script>
+  </body>
 </html>

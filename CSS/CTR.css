@@ -5,7 +5,6 @@
     font-family: Arial, sans-serif;
 }
 
-
 .nav-bar {
     height: 65px;
     background-color: #F0ECE4;
@@ -13,7 +12,6 @@
     padding: 0 60px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
-
 
 .lock {
     display: flex;
@@ -35,7 +33,6 @@
 .text-icone samp {
     color: #9B745B;
 }
-
 
 .nav-links {
     display: flex;
@@ -73,10 +70,10 @@
 
 .coun {
     display: flex;
-    flex-direction: row;        
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 30px;                 
+    gap: 30px;
     flex-wrap: wrap;
     margin-block: 20px;
 }
@@ -86,14 +83,14 @@
     width: 579px;
     height: 900px;
     border-radius: 15px;
-    box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.1);   
+    box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.1);
     background-color: #F0ECE499;
     margin: 20px;
 }
 
 
 .sc-text-inBox {
-    color:#2E211C99 ;
+    color: #2E211C99;
 }
 
 .inbox {
@@ -118,25 +115,24 @@
     width: 100%;
     height: 100px;
     border-radius: 7px;
-    border: 1.5px solid #9B745B ;
+    border: 1.5px solid #9B745B;
     outline: none;
     resize: none;
     padding: 13px;
-    box-shadow: 0px 0px 2px 0px #9B745B ;
+    box-shadow: 0px 0px 2px 0px #9B745B;
     font-size: 20px;
 
 }
 
 .hash-textarea::placeholder {
-    color:#2E211C80;
+    color: #2E211C80;
 }
 
 .finaly-text-inBox {
     color: #2E211C;
-    font-size:  24px;
+    font-size: 24px;
     margin-top: 20px;
 }
-
 
 .textarea-copyHash {
     height: 57px;
@@ -145,7 +141,7 @@
     border-radius: 5px;
     border: solid 1px #9B745B;
     resize: none;
-    padding-top:15px;
+    padding-top: 15px;
     padding-left: 20px;
     margin-top: 15px;
     font-size: 20px;
@@ -161,7 +157,7 @@
     height: 61px;
     border-radius: 10px;
     outline: none;
-    border: 1px solid #e4a985 ;
+    border: 1px solid #e4a985;
     background-color: #DFD7C9;
     margin-bottom: 200px;
     margin-left: 13%;
@@ -174,18 +170,17 @@
 
 .Encrypt-btu:active {
     transform: scale(0.96);
-    box-shadow: 0 2px 5px #c89b78 inset; 
+    box-shadow: 0 2px 5px #c89b78 inset;
     transition: transform 0.1s, box-shadow 0.1s;
 }
-
 
 .textarea-container {
     position: relative;
     width: 100%;
     margin-bottom: 20px;
-  }
-  
-  .textarea-appear {
+}
+
+.textarea-appear {
     height: 162px;
     width: 100%;
     outline: none;
@@ -194,40 +189,37 @@
     resize: none;
     padding-top: 15px;
     padding-left: 20px;
-    padding-right: 45px; 
+    padding-right: 45px;
     margin-top: 15px;
     font-size: 20px;
     box-sizing: border-box;
-  }
-  
-  .material-symbols-outlined {
+}
+
+.material-symbols-outlined {
     position: absolute;
     right: 15px;
     bottom: 15px;
     color: #c0a898;
     cursor: pointer;
     transition: transform 0.1s ease, color 0.2s ease;
-  }
-  
-  .material-symbols-outlined:hover {
+}
+
+.material-symbols-outlined:hover {
     color: #d99160;
-  }
-  
-  .material-symbols-outlined:active {
+}
+
+.material-symbols-outlined:active {
     transform: scale(0.85);
     color: #b07050;
-  }
-  
-  .copy-icon-1 {
+}
+
+.copy-icon-1 {
     color: #c0a898;
-  }
-  
-  .copy-icon-2 {
-    color: #5c6f70; 
-  }
-  
+}
 
-
+.copy-icon-2 {
+    color: #5c6f70;
+}
 
 .GenerateKeys-btn {
     width: 100%;
@@ -246,7 +238,7 @@
 
 .GenerateKeys-btn:active {
     transform: scale(0.96);
-    box-shadow: 0 2px 5px #c89b78 inset; 
+    box-shadow: 0 2px 5px #c89b78 inset;
     transition: transform 0.1s, box-shadow 0.1s;
 }
 
@@ -257,16 +249,13 @@
     cursor: pointer;
     color: #c0a898;
     transition: transform 0.1s ease, color 0.2s ease;
-  }
-  
-  .material-symbols-outlined:hover {
+}
+
+.material-symbols-outlined:hover {
     color: #d99160;
-  }
-  
-  .material-symbols-outlined:active {
-    transform: scale(0.85); 
-    color: #b07050; 
-  }
+}
 
-
-
+.material-symbols-outlined:active {
+    transform: scale(0.85);
+    color: #b07050;
+}

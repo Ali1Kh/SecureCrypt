@@ -1,5 +1,14 @@
+function leftShift(val, bits) {
+  return ((val << bits) | (val >>> (32 - bits))) >>> 0;
+}
+
+function toHexa(val) {
+  return val.toString(16).padStart(8, "0");
+}
+
 // ! SHA-1
-function hashWithSha1(text) {
+function hashWithSha1() {
+  let text = document.getElementById("sha1InputText").value;
   // ? Step 1 : Get Ascii Code For Each Character
   let charsAsciCodes = [];
   for (let i = 0; i < text.length; i++) {
@@ -56,21 +65,63 @@ function hashWithSha1(text) {
       parseInt(splitedWords[w - 14], 2) ^
       parseInt(splitedWords[w - 16], 2);
 
-    console.log(
-      `W${w}`,
-      (((xorResult << 1) | (xorResult >>> 31)) >>> 0).toString(2)
-    );
+    splitedWords.push(leftShift(xorResult, 1).toString(2));
   }
 
-  // ? Step 10 : Make each 20 words of 80 are collected in one function to get 4 functions
-  
-  
+  // ? Step 10 & 11 : Make each 20 words of 80 are collected in one function to get 4 functions
+  // * Initial Hash Values
+  let h0 = 0b01100111010001010010001100000001;
+  let h1 = 0b11101111110011011010101110001001;
+  let h2 = 0b10011000101110101101110011111110;
+  let h3 = 0b00010000001100100101010001110110;
+  let h4 = 0b11000011110100101110000111110000;
+  // Make Four Functions
+  let a = h0,
+    b = h1,
+    c = h2,
+    d = h3,
+    e = h4;
 
-  // console.log(bitsText);
-  // console.log(bitsText.length);
-  // console.log(words);
+  for (let i = 0; i < splitedWords.length; i++) {
+    let temp, f, k;
+    let word = parseInt(splitedWords[i], 2);
+    if (i < 20) {
+      // Calculated F
+      f = ((b & c) | (~b & d)) >>> 0;
+      // K Constant
+      k = 0b01011010100000100111100110011001;
+    } else if (i < 40) {
+      f = b ^ c ^ d;
+      k = 0b01101110110110011110101110100001;
+    } else if (i < 60) {
+      f = (b & c) | (b & d) | (c & d);
+      k = 0b10001111000110111011110011011100;
+    } else {
+      f = b ^ c ^ d;
+      k = 0b11001010011000101100000111010110;
+    }
+    // Calc Temp : left shift A by 5 + F + K + E + current word
+    temp = leftShift(a, 5) + f + k + e + word;
 
-  return "Until Not Hashed";
+    e = d;
+    d = c;
+    c = leftShift(b, 30) >>> 0;
+    b = a;
+    a = temp;
+    // console.log(temp.toString(2));
+  }
+
+  // ? Step 12 : Get five parts
+
+  h0 = (h0 + a) >>> 0;
+  h1 = (h1 + b) >>> 0;
+  h2 = (h2 + c) >>> 0;
+  h3 = (h3 + d) >>> 0;
+  h4 = (h4 + e) >>> 0;
+
+  let hashValue =
+    toHexa(h0) + toHexa(h1) + toHexa(h2) + toHexa(h3) + toHexa(h4);
+  sha1OutputText.value = hashValue;
+
+  return hashValue;
 }
-
-console.log(hashWithSha1("hi"));

@@ -1,0 +1,272 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+.nav-bar {
+    height: 65px;
+    background-color: #F0ECE4;
+    display: flex;
+    padding: 0 60px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+
+.lock {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lock img {
+    width: 50px;
+    height: 50px;
+}
+
+.text-icone {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+}
+
+.text-icone samp {
+    color: #9B745B;
+}
+
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 33.5%;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #9B745B;
+}
+
+
+.main-text h1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    color: #9B745B;
+    font-size: 40px;
+}
+
+.nav-links a.active {
+    border-bottom: 2px solid #9B745B;
+    color: #9B745B;
+}
+
+.coun {
+    display: flex;
+    flex-direction: row;        
+    justify-content: center;
+    align-items: center;
+    gap: 30px;                 
+    flex-wrap: wrap;
+    margin-block: 20px;
+}
+
+
+.box {
+    width: 579px;
+    height: 900px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.1);   
+    background-color: #F0ECE499;
+    margin: 20px;
+}
+
+
+.sc-text-inBox {
+    color:#2E211C99 ;
+}
+
+.inbox {
+    margin: 35px;
+}
+
+.inbox h1 {
+    margin-bottom: 7px;
+
+}
+
+.bold-text-inBox {
+
+    font-size: 24px;
+    width: 400px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+}
+
+.hash-textarea {
+    width: 100%;
+    height: 100px;
+    border-radius: 7px;
+    border: 1.5px solid #9B745B ;
+    outline: none;
+    resize: none;
+    padding: 13px;
+    box-shadow: 0px 0px 2px 0px #9B745B ;
+    font-size: 20px;
+
+}
+
+.hash-textarea::placeholder {
+    color:#2E211C80;
+}
+
+.finaly-text-inBox {
+    color: #2E211C;
+    font-size:  24px;
+    margin-top: 20px;
+}
+
+
+.textarea-copyHash {
+    height: 57px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: solid 1px #9B745B;
+    resize: none;
+    padding-top:15px;
+    padding-left: 20px;
+    margin-top: 15px;
+    font-size: 20px;
+
+}
+
+.textarea-wrapper {
+    position: relative;
+}
+
+.Encrypt-btu {
+    width: 358px;
+    height: 61px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #e4a985 ;
+    background-color: #DFD7C9;
+    margin-bottom: 200px;
+    margin-left: 13%;
+    cursor: pointer;
+    transition: background 0.8s, transform 0.1s, box-shadow 0.1s;
+    color: #9b745b;
+    box-shadow: 0 0px 10px #e4a985;
+    font-size: 20px;
+}
+
+.Encrypt-btu:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 5px #c89b78 inset; 
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+
+.textarea-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .textarea-appear {
+    height: 162px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: solid 1px #9B745B;
+    resize: none;
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 45px; 
+    margin-top: 15px;
+    font-size: 20px;
+    box-sizing: border-box;
+  }
+  
+  .material-symbols-outlined {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    color: #c0a898;
+    cursor: pointer;
+    transition: transform 0.1s ease, color 0.2s ease;
+  }
+  
+  .material-symbols-outlined:hover {
+    color: #d99160;
+  }
+  
+  .material-symbols-outlined:active {
+    transform: scale(0.85);
+    color: #b07050;
+  }
+  
+  .copy-icon-1 {
+    color: #c0a898;
+  }
+  
+  .copy-icon-2 {
+    color: #5c6f70; 
+  }
+  
+
+
+
+.GenerateKeys-btn {
+    width: 100%;
+    height: 61px;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #e4a985;
+    background-color: #dfd7c9;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background 0.8s, transform 0.1s, box-shadow 0.1s;
+    color: #9b745b;
+    box-shadow: 0 0px 10px #e4a985;
+    font-size: 20px;
+}
+
+.GenerateKeys-btn:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 5px #c89b78 inset; 
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.material-symbols-outlined {
+    position: absolute;
+    right: 10px;
+    top: 33px;
+    cursor: pointer;
+    color: #c0a898;
+    transition: transform 0.1s ease, color 0.2s ease;
+  }
+  
+  .material-symbols-outlined:hover {
+    color: #d99160;
+  }
+  
+  .material-symbols-outlined:active {
+    transform: scale(0.85); 
+    color: #b07050; 
+  }
+
+
+

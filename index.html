@@ -1,13 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="CSS/global.css">
-  <link rel="stylesheet" href="CSS/index.css">
-  <title>SecureCrypt</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureCrypt</title>
+    <link rel="stylesheet" href="CSS/global.css">
+    <link rel="stylesheet" href="CSS/components.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-  
+    <div class="nav-bar">
+        <div class="lock">
+            <img src="images/lock.png" alt="Logo" />
+            <p class="text-icone m-0"><samp>Secure</samp>Crypt</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="/" class="active">Home</a>
+            <a href="/SHA-1.html">SHA-1</a>
+            <a href="/RSA.html">RSA</a>
+            <a href="/CTR.html">CTR</a>
+        </div>
+    </div>
+    <div id="toast-container" class="toast-container position-fixed bottom-0 start-50 translate-middle-x mb-4"></div>
+    <div class="dfCcc justify-content-start" style="min-height: 100vh; width: 100%; background-color: var(--bgClr);">
+        <div id="content" class="w-100 dfCcc justify-content-start">
+            <div class="dfCcc w-100 p-5" style="height: calc(100vh - 75px);">
+                <img src="images/lock.png" width="180" alt="Logo" class="dfcc">
+                <h1 class="text dfcc fw-bolder" style="color: var(--mainClr);">
+                    Secure Your Data with Modern Cryptography
+                </h1>
+                <p class="text dfcc fw-bolder text-center mt-3 mb-5" style="width: 40%; font-size: 18px;">
+                    Explore powerful encryption and hashing algorithms implemented in one interactive platform. From
+                    block ciphers to digital signatures, learn how data security works in real-time.
+                </p>
+                <div class="dfCcc mt-5 justify-content-start"
+                    style="background-color: var(--bgClr3); border-radius: 10px; height: 150px; width: 800px;">
+                    <div class="dfcc justify-content-start w-100 h-25 gap-2 p-4">
+                        <div class="dfcc"
+                            style="width: 20px; height: 20px; border-radius: 50%; background-color: var(--red);"></div>
+                        <div class="dfcc"
+                            style="width: 20px; height: 20px; border-radius: 50%; background-color: var(--yellow);">
+                        </div>
+                        <div class="dfcc"
+                            style="width: 20px; height: 20px; border-radius: 50%; background-color: var(--green);">
+                        </div>
+                        <p class="text fw-bolder px-3" style="font-size: 18px;">
+                            Demo Encryption
+                        </p>
+                    </div>
+                    <div class="dfcc w-100 h-50">
+                        <div class="input-field" style="width: 80%; height: 50px;">
+                            <input type="text" value="Hashing..." placeholder="Hashing..." readonly
+                                style="pointer-events: none;">
+                        </div>
+                    </div>
+                    <div class="dfcc justify-content-start w-100 h-25 text fw-bolder p-4">
+                        Processing...
+                    </div>
+                </div>
+            </div>
+            <div class="dfCcc w-100 mt-5" >
+                <h1 class="text dfcc fw-bolder" style="color: var(--mainClr);">
+                    Cryptography Algorithms
+                </h1>
+                <div class="dfcc gap-5 w-100 mt-5">
+                    <div class="algorithm-box dfCcc p-4 align-items-start justify-content-start ourShadow pointer showMore"
+                        style="background-color: var(--bgClr2); border-radius: 10px; height: 350px; width: 25%;"
+                        onclick="navigateTo('ctr.html')">
+                        <h4 class="text dfcc fw-bolder w-100" style="color: var(--mainClr);">
+                            CTR Cipher Block
+                        </h4>
+                        <p class="text dfcc fw-bolder my-4 justify-content-start" style="font-size: 16px;">
+                            CTR (Counter) mode is a block cipher encryption technique that turns a block cipher into a
+                            stream cipher. It uses a counter value for each block, ensuring fast and parallel
+                            encryption. The key is generated using a linear congruential generator for enhanced
+                            randomness.
+                        </p>
+                        <div class="h-100 w-100 dfCcc justify-content-end align-items-start ">
+                            <h5 class="text dfcc fw-bolder pointer transition justify-content-start"
+                                style="color: var(--mainClr);">
+                                Show More
+                                <img src="images/Arrow.png" alt="arrow" class="transition" style="height: 30px; ">
+
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="algorithm-box dfCcc p-4 align-items-start justify-content-start ourShadow pointer showMore"
+                        style="background-color: var(--bgClr2); border-radius: 10px; height: 350px; width: 25%;"
+                        onclick="navigateTo('rsa.html')">
+                        <h4 class="text dfcc fw-bolder w-100" style="color: var(--mainClr);">
+                            RSA Algorithm
+                        </h4>
+                        <p class="text dfcc fw-bolder my-4 justify-content-start" style="font-size: 16px;">
+                            RSA is a widely-used public key encryption algorithm that ensures secure communication over
+                            the internet. It uses two keys public and private for encryption and decryption. In our
+                            implementation, key generation is supported by a linear congruential generator.
+                        </p>
+                        <div class="h-100 w-100 dfCcc justify-content-end align-items-start">
+                            <h5 class="text dfcc fw-bolder pointer transition justify-content-start"
+                                style="color: var(--mainClr);">
+                                Show More
+                                <img src="images/Arrow.png" alt="arrow" class="transition" style="height: 30px; ">
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="algorithm-box dfCcc p-4 align-items-start justify-content-start ourShadow pointer showMore"
+                        style="background-color: var(--bgClr2); border-radius: 10px; height: 350px; width: 25%;"
+                        onclick="navigateTo('sha-1.html')">
+                        <h4 class="text dfcc fw-bolder w-100" style="color: var(--mainClr);">
+                            SHA-1 Hash Function
+                        </h4>
+                        <p class="text dfcc fw-bolder my-4 justify-content-start" style="font-size: 16px;">
+                            SHA-1 (Secure Hash Algorithm 1) is a cryptographic hash function that converts data into a
+                            fixed 160-bit hash. It's primarily used for verifying data integrity. Though outdated for
+                            secure applications, it's still useful for educational purposes and understanding hash
+                            behavior.
+                        </p>
+                        <div class="h-100 w-100 dfCcc justify-content-end align-items-start">
+                            <h5 class="text dfcc fw-bolder pointer transition justify-content-start"
+                                style="color: var(--mainClr);">
+                                Show More
+                                <img src="images/Arrow.png" alt="arrow" class="transition" style="height: 30px; ">
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dfCcc w-100 mt-5 py-5">
+                <h1 class="text dfcc fw-bolder" style="color: var(--mainClr);">
+                    Our Team
+                </h1>
+                <div class="dfcc gap-5 w-100 mt-5">
+                    <div class="member dfCcc align-items-start justify-content-start ourShadow"
+                        style="background-color: var(--bgClr); border-radius: 10px; height: 300px; width: 25%;">
+                        <div class="dfcc w-100 justify-content-start px-3 py-3"
+                            style="height: 82px; background-color: var(--bgClr3);">
+                            <img src="images/man icon.png" alt="member" class="h-100 bg-transparent">
+                            <div class="dfCcc h-75 px-3 align-items-start">
+                                <h4 class="text dfcc fw-bolder w-100 justify-content-start" style="color: var(--text);">
+                                    Ali Khaled
+                                </h4>
+                                <p class="text2 dfcc fw-bolder justify-content-start w-100"
+                                    style="font-size: 12px; opacity: 0.8;">
+                                    Team Leader & Web Developer
+                                </p>
+                            </div>
+                        </div>
+                        <div class="w-100 h-100 p-5 text fw-bold">
+                            Team Lead and Full-Stack Web Developer. Manages team workflow, builds scalable web apps,
+                            ensures code quality, and leads development using React, Node.js, and MongoDB.
+                        </div>
+                    </div>
+                </div>
+                <div class="dfcc gap-5 w-100 mt-5">
+                    <div class="member dfCcc align-items-start justify-content-start ourShadow"
+                        style="background-color: var(--bgClr); border-radius: 10px; height: 300px; width: 25%;">
+                        <div class="dfcc w-100 justify-content-start px-3 py-3"
+                            style="height: 82px; background-color: var(--bgClr3);">
+                            <img src="images/man icon.png" alt="member" class="h-100 bg-transparent">
+                            <div class="dfCcc h-75 px-3 align-items-start">
+                                <h4 class="text dfcc fw-bolder w-100 justify-content-start" style="color: var(--text);">
+                                    Mustafa Salem
+                                </h4>
+                                <p class="text2 dfcc fw-bolder justify-content-start w-100"
+                                    style="font-size: 12px; opacity: 0.8;">
+                                    Web Developer & UI UX Designer
+                                </p>
+                            </div>
+                        </div>
+                        <div class="w-100 h-100 p-5 text fw-bold">
+                            Designs intuitive user experiences and transforms them into functional frontend code.
+                            Combines creativity with usability to enhance product engagement and visual appeal.
+                        </div>
+                    </div>
+                    <div class="member dfCcc align-items-start justify-content-start ourShadow"
+                        style="background-color: var(--bgClr); border-radius: 10px; height: 300px; width: 25%;">
+                        <div class="dfcc w-100 justify-content-start px-3 py-3"
+                            style="height: 82px; background-color: var(--bgClr3);">
+                            <img src="images/man icon.png" alt="member" class="h-100 bg-transparent">
+                            <div class="dfCcc h-75 px-3 align-items-start">
+                                <h4 class="text dfcc fw-bolder w-100 justify-content-start" style="color: var(--text);">
+                                    Abdelaziz Hatem
+                                </h4>
+                                <p class="text2 dfcc fw-bolder justify-content-start w-100"
+                                    style="font-size: 12px; opacity: 0.8;">
+                                    Frontend Developer
+                                </p>
+                            </div>
+                        </div>
+                        <div class="w-100 h-100 p-5 text fw-bold">
+                            Creates modern frontend interfaces using HTML, CSS, and JavaScript frameworks. Focuses on
+                            responsive design, user experience, and clean, maintainable code structures.
+                        </div>
+                    </div>
+                    <div class="member dfCcc align-items-start justify-content-start ourShadow"
+                        style="background-color: var(--bgClr); border-radius: 10px; height: 300px; width: 25%;">
+                        <div class="dfcc w-100 justify-content-start px-3 py-3"
+                            style="height: 82px; background-color: var(--bgClr3);">
+                            <img src="images/man icon.png" alt="member" class="h-100 bg-transparent">
+                            <div class="dfCcc h-75 px-3 align-items-start">
+                                <h4 class="text dfcc fw-bolder w-100 justify-content-start" style="color: var(--text);">
+                                    Abdullah Ahmed
+                                </h4>
+                                <p class="text2 dfcc fw-bolder justify-content-start w-100"
+                                    style="font-size: 12px; opacity: 0.8;">
+                                    Mobile Developer
+                                </p>
+                            </div>
+                        </div>
+                        <div class="w-100 h-100 p-5 text fw-bold">
+                            Develops high-quality mobile applications using Flutter. Focuses on performance, smooth user
+                            experience, API integration, and delivering reliable cross-platform solutions for Android
+                            and iOS devices.
+                        </div>
+                    </div>
+                </div>
+                <div class="dfcc gap-5 w-100 mt-5">
+                    <div class="member dfCcc align-items-start justify-content-start ourShadow"
+                        style="background-color: var(--bgClr); border-radius: 10px; height: 300px; width: 25%;">
+                        <div class="dfcc w-100 justify-content-start px-3 py-3"
+                            style="height: 82px; background-color: var(--bgClr3);">
+                            <img src="images/man icon.png" alt="member" class="h-100 bg-transparent">
+                            <div class="dfCcc h-75 px-3 align-items-start">
+                                <h4 class="text dfcc fw-bolder w-100 justify-content-start" style="color: var(--text);">
+                                    Abdullah Taha
+                                </h4>
+                                <p class="text2 dfcc fw-bolder justify-content-start w-100"
+                                    style="font-size: 12px; opacity: 0.8;">
+                                    Mobile Developer
+                                </p>
+                            </div>
+                        </div>
+                        <div class="w-100 h-100 p-5 text fw-bold">
+                            Develops cross-platform mobile applications using Flutter. Implements smooth UI, handles
+                            state management, and ensures performance and compatibility across Android and iOS.
+                        </div>
+                    </div>
+                    <div class="member dfCcc align-items-start justify-content-start ourShadow"
+                        style="background-color: var(--bgClr); border-radius: 10px; height: 300px; width: 25%;">
+                        <div class="dfcc w-100 justify-content-start px-3 py-3"
+                            style="height: 82px; background-color: var(--bgClr3);">
+                            <img src="images/woman icon.png" alt="member" class="h-100 bg-transparent">
+                            <div class="dfCcc h-75 px-3 align-items-start">
+                                <h4 class="text dfcc fw-bolder w-100 justify-content-start" style="color: var(--text);">
+                                    Demiana Samy
+                                </h4>
+                                <p class="text2 dfcc fw-bolder justify-content-start w-100"
+                                    style="font-size: 12px; opacity: 0.8;">
+                                    Frontend Developer
+                                </p>
+                            </div>
+                        </div>
+                        <div class="w-100 h-100 p-5 text fw-bold">
+                            Builds responsive and interactive frontend interfaces. Focuses on clean code, performance,
+                            and aligning development with design to deliver a seamless user experience.
+                        </div>
+                    </div>
+                    <div class="member dfCcc align-items-start justify-content-start ourShadow"
+                        style="background-color: var(--bgClr); border-radius: 10px; height: 300px; width: 25%;">
+                        <div class="dfcc w-100 justify-content-start px-3 py-3"
+                            style="height: 82px; background-color: var(--bgClr3);">
+                            <img src="images/woman icon.png" alt="member" class="h-100 bg-transparent">
+                            <div class="dfCcc h-75 px-3 align-items-start">
+                                <h4 class="text dfcc fw-bolder w-100 justify-content-start" style="color: var(--text);">
+                                    Mariam Mahmoud
+                                </h4>
+                                <p class="text2 dfcc fw-bolder justify-content-start w-100"
+                                    style="font-size: 12px; opacity: 0.8;">
+                                    Project Tester
+                                </p>
+                            </div>
+                        </div>
+                        <div class="w-100 h-100 p-5 text fw-bold">
+                            Tests applications thoroughly to ensure quality, functionality, and performance. Detects
+                            bugs, writes reports, and helps developers deliver stable, reliable software products.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dfCcc" style="width: 90%; height: 100px;">
+                <hr class="w-100" style="background-color: var(--mainClr); height: 2px;">
+                <div class="dfcc w-100 justify-content-between" style="height: 98px;">
+                    <div class="h-100 dfcc justify-content-start gap-4">
+                        <img src="images/Nctu.png" alt="NCTU" class="h-75 bg-transparent">
+                        <p class="text2 fw-bold"> University Project </p>
+                    </div>
+                    <p class="text2 fw-bold"> Supervised by Dr. Abeer Hassan </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="JS/index.js"></script>
 </body>
+
 </html>

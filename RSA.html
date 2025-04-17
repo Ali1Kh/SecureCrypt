@@ -1,14 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="CSS/global.css">
-  <link rel="stylesheet" href="CSS/RSA.css">
-  <title>SecureCrypt</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureCrypt</title>
+    <link rel="stylesheet" href="CSS/global.css">
+    <link rel="stylesheet" href="CSS/components.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-  
-  <script src="JS/RSA.js"></script>
+    <div class="nav-bar">
+        <div class="lock">
+            <img src="images/lock.png" alt="Logo" />
+            <p class="text-icone m-0"><samp>Secure</samp>Crypt</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/SHA-1.html">SHA-1</a>
+            <a href="/RSA.html" class="active">RSA</a>
+            <a href="/CTR.html">CTR</a>
+        </div>
+    </div>
+    <div id="toast-container" class="toast-container position-fixed bottom-0 start-50 translate-middle-x mb-4"></div>
+    <div class="dfCcc justify-content-start mb-4"
+        style="min-height: 100vh; width: 100%; background-color: var(--bgClr);">
+
+        <div id="content" class="w-100 dfCcc justify-content-start pt-4">
+            <div class="dfCcc w-100">
+                <h1 class="text dfcc fw-bolder" style="color: var(--mainClr);">
+                    RSA Algorithm
+                </h1>
+                <div class="dfcc w-75 h-75 justify-content-around align-items-start py-5">
+                    <div class="dfCcc shadow p-5 justify-content-around"
+                        style="background-color: var(--bgClr3); border-radius: 10px; height: 325px; width: 100%;">
+                        <h4 class="w-100 text dfcc fw-bolder justify-content-start">
+                            Generate RSA keys
+                        </h4>
+                        <div class="dfcc w-100 justify-content-between">
+                            <div class="dfCcc" style="width: 40%;">
+                                <h4 class="w-100 text dfcc justify-content-start py-3">
+                                    Public Key
+                                </h4>
+                                <div class="input-field" style="width: 100%; height: 50px;">
+                                    <input type="text" id="publicKey" placeholder="Public Key value">
+                                    <div class="copy-button">
+                                        <img src="images/copy.png" alt="copy"
+                                            style="width: 40px; color: var(--mainClr)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dfCcc" style="width: 40%;">
+                                <h4 class="w-100 text dfcc justify-content-start py-3">
+                                    Private Key
+                                </h4>
+                                <div class="input-field" style="width: 100%; height: 50px;">
+                                    <input type="text" id="privateKey" placeholder="Private Key value">
+                                    <div class="copy-button">
+                                        <img src="images/copy.png" alt="copy"
+                                            style="width: 40px; color: var(--mainClr)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dfcc w-100 align-items-end" style="height: 150px;">
+                            <div class="button transition pointer dfcc ourShadow fw-bolder" onclick="generateKeys()"
+                                style="background-color: var(--bgClr4); border-radius: 10px; height: 50px; width: 50%; font-size: 18px; color: var(--mainClr);">
+                                Generate Keys
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dfcc shadow gap-4 w-75 h-75 justify-content-around align-items-start">
+                    <div class="dfCcc shadow p-5 justify-content-center"
+                        style="background-color: var(--bgClr3); border-radius: 10px; height: 100%; width: 50%;">
+                        <h4 class="w-100 text dfcc fw-bolder justify-content-start">
+                            Input
+                        </h4>
+                        <p class="w-100 py-3 text2 dfcc fw-bolder justify-content-start">
+                            Enter plaintext in RSA
+                        </p>
+                        <h4 class="w-100 text dfcc justify-content-start py-3">
+                            Plaintext
+                        </h4>
+                        <div class="input-field" style="width: 100%; height: 150px;">
+                            <textarea id="plainText" placeholder="Enter text to encrypt"></textarea>
+                        </div>
+                        <h4 class="w-100 text dfcc justify-content-start py-3">
+                            Encrypted Output
+                        </h4>
+                        <div class="input-field" style="width: 100%; height: 260px;">
+                            <textarea id="encryptOutput" placeholder="Encrypt will appear here"></textarea>
+                            <div class="copy-button">
+                                <img src="images/copy.png" alt="copy" style="width: 40px; color: var(--mainClr)">
+                            </div>
+                        </div>
+                        <div class="dfcc w-100 align-items-end" style="height: 100px;">
+                            <div class="button transition pointer dfcc ourShadow fw-bolder" onclick="encrypt()"
+                                style="background-color: var(--bgClr4); border-radius: 10px; height: 50px; width: 100%; font-size: 18px; color: var(--mainClr);">
+                                Encrypt
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dfCcc shadow p-5 justify-content-around"
+                        style="background-color: var(--bgClr3); border-radius: 10px; height: 100%; width: 50%;">
+                        <h4 class="w-100 text dfcc fw-bolder justify-content-start">
+                            Output
+                        </h4>
+                        <p class="w-100 py-3 text2 dfcc fw-bolder justify-content-start">
+                            View and decrypt ciphertext using CTR mode
+                        </p>
+                        <h4 class="w-100 text dfcc justify-content-start py-3">
+                            Ciphertext
+                        </h4>
+                        <div class="input-field" style="width: 100%; height: 150px;">
+                            <textarea id="cipherText" placeholder="Enter Encrypted Text to Decrypt (Base64)"></textarea>
+                        </div>
+                        <h4 class="w-100 text dfcc justify-content-start py-3">
+                            Private Key
+                        </h4>
+                        <div class="input-field" style="width: 100%; height: 50px;">
+                            <input type="text" id="outputPrivateKey" placeholder="Private Key value">
+                        </div>
+                        <h4 class="w-100 text dfcc justify-content-start py-3">
+                            Decrypted Output
+                        </h4>
+                        <div class="input-field" style="width: 100%; height: 150px;">
+                            <textarea id="decryptOutput" placeholder="Decrypted Output"></textarea>
+                        </div>
+                        <div class="dfcc w-100 align-items-end" style="height: 100px;">
+                            <div class="button transition pointer dfcc ourShadow fw-bolder" onclick="decrypt()"
+                                style="background-color: var(--bgClr4); border-radius: 10px; height: 50px; width: 100%; font-size: 18px; color: var(--mainClr);">
+                                Decrypt
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/rsa.js"></script>
 </body>
+
 </html>

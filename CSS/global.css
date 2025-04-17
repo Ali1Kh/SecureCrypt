@@ -1,0 +1,91 @@
+:root {
+  --bgClr: #f8fafc;
+  --bgClr2: #f0ece4;
+  --bgClr3: #ece7de;
+  --bgClr4: #dfd7c9;
+  --mainClr: #9b745b;
+  --text: #2e211c;
+  --text2: #a4a9b8;
+  --green: #22c55e;
+  --red: #ef4444;
+  --yellow: #f59e0b;
+}
+
+* {
+  font-family: "National Park", sans-serif;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+body {
+  background-color: var(--bgClr) !important;
+}
+
+.dfcc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dfCcc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.text {
+  color: var(--text);
+}
+
+.text2 {
+  color: var(--text2);
+}
+
+.transition {
+  transition: all 0.3s ease-in-out;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.ourShadow {
+  box-shadow: rgba(0, 0, 0, 0.308) 5px 5px 5px 0px,
+    rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+/* 
+.navLink:hover,
+.navLinkSelected {
+  color: var(--mainClr) !important;
+}
+
+.navLink::after {
+  content: "";
+  transition: all 0.3s ease-in-out;
+  width: 0%;
+  height: 2px;
+  background-color: var(--mainClr);
+}
+
+.navLink:hover::after,
+.navLinkSelected::after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  background-color: var(--mainClr);
+}
+
+.showMore > div > h5 {
+  gap: 2rem !important;
+}
+
+.showMore:hover > div > h5 {
+  gap: 3rem !important;
+} */

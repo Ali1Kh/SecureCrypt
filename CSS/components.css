@@ -1,0 +1,129 @@
+.input-field {
+  display: flex;
+  align-items: flex-start;
+  background-color: var(--bgClr);
+  border-radius: 10px;
+  border: 2px solid var(--mainClr);
+  overflow: hidden;
+}
+
+.input-field input {
+  background-color: transparent;
+  height: 100%;
+  width: 100%;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  color: var(--text);
+  padding: 0 15px !important;
+  font-weight: bold;
+}
+
+.input-field textarea {
+  background-color: transparent;
+  height: 98%;
+  width: 100%;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  color: var(--text);
+  padding: 15px !important;
+  font-weight: bold;
+  resize: none;
+  overflow-y: auto;
+}
+
+.input-field .copy-button {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.button:hover {
+  transform: scale(1.02);
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.algorithm-box:hover,
+.member:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+.algorithm-box img,
+.member img {
+  object-fit: contain;
+}
+
+/* Navbar */
+
+nav {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.nav-bar {
+  height: 65px;
+  background-color: #f0ece4;
+  display: flex;
+  padding: 0 60px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.lock {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lock img {
+  width: 50px;
+  height: 50px;
+}
+
+.text-icone {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+.text-icone samp {
+  color: #9b745b;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: 33.5%;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #9b745b;
+}
+
+.nav-links a.active {
+  border-bottom: 2px solid #9b745b;
+  color: #9b745b;
+}

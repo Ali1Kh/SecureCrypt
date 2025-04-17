@@ -28,58 +28,85 @@
     </div>
   </div>
 
-  <div class="main-screen">
-    <div class="main-text">
-      <h1>SHA-1 Hash</h1>
-    </div>
+    <div class="main-screen">
+      <div class="main-text">
+        <h1>SHA-1 Hash</h1>
+      </div>
 
-    <div class="coun">
-      <div class="box">
-        <div class="inbox">
-          <div class="text-box">
-            <h1>Generate Hash</h1>
-            <p class="sc-text-inBox">Create SHA-1 hash from input text</p>
-            <p class="bold-text-inBox">Input Text</p>
+      <div class="coun">
+        <div class="box">
+          <div class="inbox">
+            <div class="text-box">
+              <h1>Generate Hash</h1>
+              <p class="sc-text-inBox">Create SHA-1 hash from input text</p>
+              <p class="bold-text-inBox">Input Text</p>
 
-            <textarea class="hash-textarea" name="" id="sha1InputText" placeholder="Enter text to hash"></textarea>
-            <p class="finaly-text-inBox">Generated SHA-1 Hash</p>
+              <textarea
+                class="hash-textarea"
+                name=""
+                id="sha1InputText"
+                placeholder="Enter text to hash"
+              ></textarea>
+              <p class="finaly-text-inBox">Generated SHA-1 Hash</p>
 
-            <div class="textarea-wrapper">
-              <textarea id="sha1OutputText" class="textarea-copyHash" placeholder="Hash will appear here"></textarea>
-              <!-- <button class="copy-btn">Copy Hash</button> -->
-              <span onclick="copyToClipboard('sha1OutputText')" class="material-symbols-outlined">content_copy</span>
+              <div class="textarea-wrapper">
+                <textarea
+                  id="sha1OutputText"
+                  class="textarea-copyHash"
+                  placeholder="Hash will appear here"
+                ></textarea>
+                <!-- <button class="copy-btn">Copy Hash</button> -->
+                <span
+                  onclick="copyToClipboard('sha1OutputText')"
+                  class="material-symbols-outlined"
+                  >content_copy</span
+                >
+              </div>
+
+              <button
+                class="Generate-btu"
+                type="button"
+                onclick="hashWithSha1()"
+              >
+                Generate Hash
+              </button>
             </div>
+          </div>
+        </div>
 
-            <button class="Generate-btu" type="button" onclick="hashWithSha1()">Generate Hash</button>
+        <div class="box">
+          <div class="inbox">
+            <div class="text-box">
+              <h1>Verify Hash</h1>
+              <p class="sc-text-inBox">
+                Verify if a hash matches the input text
+              </p>
+              <p class="bold-text-inBox">Input Text</p>
+
+              <textarea
+                class="hash-textarea"
+                id="sha1VerifyInput"
+                placeholder="Enter text to verify"
+              ></textarea>
+
+              <p class="finaly-text-inBox">SHA-1 Hash to Verify</p>
+
+              <div class="textarea-wrapper">
+                <textarea
+                  class="textarea-copyHash"
+                  id="sha1VerifyHash"
+                  placeholder="Enter hash to verify against"
+                ></textarea>
+                <!-- <button class="copy-btn">Verify Hash</button> -->
+              </div>
+
+              <button class="Generate-btu" type="button" onclick="verifySha1()">Verify Hash</button>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="box">
-        <div class="inbox">
-          <div class="text-box">
-            <h1>Verify Hash</h1>
-            <p class="sc-text-inBox">
-              Verify if a hash matches the input text
-            </p>
-            <p class="bold-text-inBox">Input Text</p>
-
-            <textarea class="hash-textarea" name="" id="" placeholder="Enter text to verify"></textarea>
-            <p class="finaly-text-inBox">SHA-1 Hash to Verify</p>
-
-            <div class="textarea-wrapper">
-              <textarea class="textarea-copyHash" placeholder="Enter hash to verify against"></textarea>
-              <!-- <button class="copy-btn">Verify Hash</button> -->
-            </div>
-
-            <button class="Generate-btu" type="button">Generate Hash</button>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-  <script src="JS/index.js"></script>
-  <script src="JS/SHA-1.js"></script>
-</body>
-
+    <script src="JS/index.js"></script>
+    <script src="JS/SHA-1.js"></script>
+  </body>
 </html>

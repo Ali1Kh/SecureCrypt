@@ -1,5 +1,5 @@
+// Linear Congruential Generator to generate two distinct prime numbers
 function generateTwoPrimesFromSeed(seed) {
-  // Constants for the Linear Congruential Generator (LCG)
   let a = 1103515245;
   let c = 12345;
   let m = Math.pow(2, 31);
@@ -14,53 +14,136 @@ function generateTwoPrimesFromSeed(seed) {
     return true;
   }
 
-  // Linear Congruential Generator formula
+  // LCG formula to generate random numbers
   function lcg(seed, a, c, m) {
     return (a * seed + c) % m;
   }
 
-  // Generate two distinct prime numbers
   let primes = [];
-
+  // Increase the range for generating primes that will result in a 515-bit n
   while (primes.length < 2) {
-    x = lcg(x, a, c, m); // Generate next random number
-    let possiblePrime = x % 1000; // Limit the range to 0–999
-    if (isPrime(possiblePrime) && !primes.includes(possiblePrime)) {
-      primes.push(possiblePrime); // Add to the list if it's a new prime
+    x = lcg(x, a, c, m);
+    let possiblePrime = x % 1000000; // Limit the range to larger primes (~1 million)
+    if (isPrime(possiblePrime) && !primes.includes(possiblePrime) && possiblePrime > Math.pow(2, 255)) {
+      primes.push(possiblePrime);
     }
   }
 
-  // Store the primes in p and q
   let [p, q] = primes;
   return { p, q };
 }
 
-// Use the current timestamp as a seed
-const seed = Date.now();
-let { p, q } = generateTwoPrimesFromSeed(seed);
-
-
-// Generate the public and private keys
-const n = p * q;
-const phi = (p - 1) * (q - 1);
-const e = 65537; // Commonly used public exponent
-
+// Extended Euclidean Algorithm to calculate modular inverse
 function modInverse(e, phi) {
-    
+  let t = 0, newT = 1;
+  let r = phi, newR = e;
+
+  while (newR !== 0) {
+    let quotient = Math.floor(r / newR);
+    [t, newT] = [newT, t - quotient * newT];
+    [r, newR] = [newR, r - quotient * newR];
+  }
+
+  if (r > 1) throw new Error("No modular inverse exists");
+  if (t < 0) t += phi;
+  return t;
 }
 
-//   for (let i = 0; i < phi; i++) {
-//     if ((e * i) % phi == 1) {
-//       return i;
-//     }
-//   }
+// RSA Encryption: Encrypts a string using character codes
+function rsaEncrypt(plaintext, publicKey) {
+  const { e, n } = publicKey;
+  const result = [];
 
-const d = modInverse(e, phi);
+  for (let i = 0; i < plaintext.length; i++) {
+    const charCode = plaintext.charCodeAt(i);
+    const encrypted = BigInt(charCode) ** BigInt(e) % BigInt(n);
+    result.push(encrypted.toString());
+  }
 
-const publicKey = { e, n };
-const privateKey = { d, n };
+  return result;
+}
 
+// RSA Decryption: Decrypts an array of encrypted codes
+function rsaDecrypt(cipherArray, privateKey) {
+  const { d, n } = privateKey;
+  let result = "";
+
+  for (let i = 0; i < cipherArray.length; i++) {
+    const decrypted = BigInt(cipherArray[i]) ** BigInt(d) % BigInt(n);
+    result += String.fromCharCode(Number(decrypted));
+  }
+
+  return result;
+}
+
+// Format base64 string with 64-character lines
+function formatBase64(str) {
+  return str.match(/.{1,64}/g).join("\n");
+}
+
+// Simulate PEM format by encoding JSON as Base64 (using btoa for browser)
+function toPemKey(title, keyData) {
+  const json = JSON.stringify(keyData);
+  const base64 = btoa(json); // Use btoa for browser (not Node.js)
+  return `-----BEGIN ${title}-----\n${formatBase64(base64)}\n-----END ${title}-----`;
+}
+
+// Export Public Key in PEM format
+function exportPublicKeyPem(publicKey) {
+  return toPemKey("PUBLIC KEY", publicKey);
+}
+
+// Export Private Key in PEM format
+function exportPrivateKeyPem(privateKey) {
+  return toPemKey("RSA PRIVATE KEY", privateKey);
+}
+
+// Generate RSA Key Pair and export as PEM
+function getKeyPair() {
+  const seed = Date.now();
+  const { p, q } = generateTwoPrimesFromSeed(seed);
+  const n = p * q;
+  const phi = (p - 1) * (q - 1);
+  const e = 65537;
+  const d = modInverse(e, phi);
+
+  const publicKey = { e, n };
+  const privateKey = { d, n, p, q };
+
+  const publicKeyPem = exportPublicKeyPem(publicKey);
+  const privateKeyPem = exportPrivateKeyPem(privateKey);
+
+  return {
+    seed,
+    p,
+    q,
+    publicKey,
+    privateKey,
+    publicKeyPem,
+    privateKeyPem
+  };
+}
+
+// === DEMO USAGE ===
+const {
+  seed,
+  p,
+  q,
+  publicKey,
+  privateKey,
+  publicKeyPem,
+  privateKeyPem
+} = getKeyPair();
+
+const plaintext = "Hello RSA!";
+const ciphertext = rsaEncrypt(plaintext, publicKey);
+const decryptedText = rsaDecrypt(ciphertext, privateKey);
+
+// === OUTPUT RESULTS ===
 console.log("Seed:", seed);
-console.log("Generated primes:", p, q);
-console.log("Public Key (e, n):", publicKey);
-console.log("Private Key (d, n):", privateKey);
+console.log("Generated Primes:", p, q);
+console.log("Public Key PEM:\n", publicKeyPem);
+console.log("Private Key PEM:\n", privateKeyPem);
+console.log("Plaintext:", plaintext);
+console.log("Encrypted:", ciphertext);
+console.log("Decrypted:", decryptedText);

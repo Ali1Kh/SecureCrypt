@@ -1,9 +1,6 @@
-// ? Step 1 : Left rotate a 32-bit number by "bits" places
 function leftShift(val, bits) {
   return ((val << bits) | (val >>> (32 - bits))) >>> 0;
 }
-
-// ? Step 2 : Convert integer to hexadecimal string with 8 digits
 function toHexa(val) {
   return val.toString(16).padStart(8, "0");
 }
@@ -12,72 +9,89 @@ function toHexa(val) {
 function hashWithSha1() {
   const text = document.getElementById("sha1InputText").value;
 
-  // ? Step 3 : Convert text to array of ASCII codes
-  const asciiCodes = Array.from(text).map(c => c.charCodeAt(0));
-
-  // ? Step 4 : Convert each ASCII code to 8-bit binary and join to one long bit string
-  let bitString = asciiCodes.map(c => c.toString(2).padStart(8, "0")).join("");
-
-  // ? Step 5 : Append a single '1' bit to the message
-  bitString += "1";
-
-  // ? Step 6 : Append '0' bits until length ≡ 448 mod 512
-  while ((bitString.length % 512) !== 448) {
-    bitString += "0";
+  // ? Step 1 : Get Ascii Code For Each Character
+  let charsAsciCodes = [];
+  for (let i = 0; i < text.length; i++) {
+    charsAsciCodes.push(text.charCodeAt(i));
   }
 
-  // ? Step 7 : Append original message length as a 64-bit binary (big-endian)
-  const originalLength = text.length * 8;
-  bitString += originalLength.toString(2).padStart(64, "0");
-
-  // ? Step 8 : Split full bit string into 512-bit chunks
-  const chunks = [];
-  for (let i = 0; i < bitString.length; i += 512) {
-    chunks.push(bitString.slice(i, i + 512));
+  // ? Step 2 : Convert Ascii Code to 8-bit Binary
+  let charInBinary = [];
+  for (let i = 0; i < charsAsciCodes.length; i++) {
+    let charBinary = charsAsciCodes[i].toString(2).padStart(8, "0");
+    charInBinary.push(charBinary);
   }
 
-  // ? Step 9 : Initialize SHA-1 hash values (5 words)
-  let h0 = 0x67452301;
-  let h1 = 0xEFCDAB89;
-  let h2 = 0x98BADCFE;
-  let h3 = 0x10325476;
-  let h4 = 0xC3D2E1F0;
+  // ? Step 3 : Join Binary
+  let bitsText = charInBinary.join("");
 
-  // ? Step 10 : Process each 512-bit chunk
-  for (const chunk of chunks) {
-    // ? Step 10.1 : Break chunk into sixteen 32-bit words
-    const words = [];
-    for (let i = 0; i < 512; i += 32) {
-      words.push(parseInt(chunk.slice(i, i + 32), 2));
+  // ? Step 4 : Add Extra Bit In Last of binary numbers
+  bitsText += "1";
+
+  // ? Step 5 : Add 0 To Reach 448 Bits
+  let charsInTextLength = bitsText.length;
+  for (let i = 0; i < 448 - charsInTextLength; i++) {
+    bitsText += "0";
+  }
+
+  // ? Step 6 : Append original length as 64-bit binary
+  let binaryOfSummationBitsx64 = (charsInTextLength - 1).toString(2);
+  // * Make Number For Summation Bits 64 Bit
+  if (binaryOfSummationBitsx64.length < 64) {
+    let binaryOfSummationBitsLength = binaryOfSummationBitsx64.length;
+    for (let i = 0; i < 64 - binaryOfSummationBitsLength; i++) {
+      binaryOfSummationBitsx64 = "0" + binaryOfSummationBitsx64;
+    }
+  }
+  bitsText += binaryOfSummationBitsx64;
+
+  // ? Step 7 : Process in 512-bit chunks
+  let numberOfChunks = bitsText.length / 512;
+
+  // ? Step 8 : Initial Hash Values
+  let h0 = 0b01100111010001010010001100000001; // ! 0x67452301
+  let h1 = 0b11101111110011011010101110001001; // ! 0xEFCDAB89
+  let h2 = 0b10011000101110101101110011111110; // ! 0x98BADCFE
+  let h3 = 0b00010000001100100101010001110110; // ! 0x10325476
+  let h4 = 0b11000011110100101110000111110000; // ! 0xC3D2E1F0
+
+  for (let chunkIndex = 0; chunkIndex < numberOfChunks; chunkIndex++) {
+    let chunk = bitsText.slice(chunkIndex * 512, (chunkIndex + 1) * 512);
+
+    // ? Step 9 : Break chunk into 16 words
+    let w = [];
+    for (let i = 0; i < 16; i++) {
+      w[i] = parseInt(chunk.slice(i * 32, (i + 1) * 32), 2);
     }
 
-    // ? Step 10.2 : Extend 16 words to 80 words
+    // ? Step 10 : Extend to 80 words
     for (let i = 16; i < 80; i++) {
-      const val = words[i - 3] ^ words[i - 8] ^ words[i - 14] ^ words[i - 16];
-      words[i] = leftShift(val, 1);
+      w[i] = leftShift(w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16], 1);
     }
 
-    // ? Step 10.3 : Initialize working variables a, b, c, d, e
-    let a = h0, b = h1, c = h2, d = h3, e = h4;
+    // ? Step 11 : Initialize hash value for this chunk
+    let a = h0;
+    let b = h1;
+    let c = h2;
+    let d = h3;
+    let e = h4;
 
-    // ? Step 10.4 : Main SHA-1 compression loop (80 rounds)
     for (let i = 0; i < 80; i++) {
       let f, k;
       if (i < 20) {
         f = (b & c) | (~b & d);
-        k = 0x5A827999;
+        k = 0b01011010100000100111100110011001; // ! 0x5a827999
       } else if (i < 40) {
         f = b ^ c ^ d;
-        k = 0x6ED9EBA1;
+        k = 0b01101110110110011110101110100001; // ! 0x6ed9eba1
       } else if (i < 60) {
         f = (b & c) | (b & d) | (c & d);
-        k = 0x8F1BBCDC;
+        k = 0b10001111000110111011110011011100; // ! 0x8f1bbcdc
       } else {
         f = b ^ c ^ d;
-        k = 0xCA62C1D6;
+        k = 0b11001010011000101100000111010110; // ! 0xca62c1d6
       }
-
-      const temp = (leftShift(a, 5) + f + e + k + words[i]) >>> 0;
+      let temp = (leftShift(a, 5) + f + e + k + w[i]) >>> 0;
       e = d;
       d = c;
       c = leftShift(b, 30) >>> 0;
@@ -85,7 +99,7 @@ function hashWithSha1() {
       a = temp;
     }
 
-    // ? Step 10.5 : Add the chunk's result to the hash values
+    // ? Step 12 : Add chunk hash to result
     h0 = (h0 + a) >>> 0;
     h1 = (h1 + b) >>> 0;
     h2 = (h2 + c) >>> 0;
@@ -93,10 +107,10 @@ function hashWithSha1() {
     h4 = (h4 + e) >>> 0;
   }
 
-  // ? Step 11 : Concatenate final hash value from h0 to h4
+  // ? Step 13 : Final Hash
   const hash = toHexa(h0) + toHexa(h1) + toHexa(h2) + toHexa(h3) + toHexa(h4);
 
-  // ? Step 12 : Output the hash to the result field
+  // ? Step 14 : Output Result
   document.getElementById("sha1OutputText").value = hash;
   return hash;
 }

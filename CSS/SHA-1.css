@@ -89,27 +89,6 @@
   position: relative;
 }
 
-/* .copy-btn {
-    position: absolute;
-    top: 25px;
-    right: 10px;
-    padding: 8px 12px;
-    font-size: 14px;
-    background-color: #DFD7C9;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.8s;
-    width: 111px;
-    height: 36px;
-
-
-}
-
-.copy-btn,.Generate-btu:hover {
-    background-color: #e4a985;
-} */
 
 .Generate-btu {
   width: 358px;

@@ -125,25 +125,28 @@ function getKeyPair() {
 }
 
 // === DEMO USAGE ===
-const {
-  seed,
-  p,
-  q,
-  publicKey,
-  privateKey,
-  publicKeyPem,
-  privateKeyPem
-} = getKeyPair();
 
-const plaintext = "Hello RSA!";
-const ciphertext = rsaEncrypt(plaintext, publicKey);
-const decryptedText = rsaDecrypt(ciphertext, privateKey);
+return;
 
-// === OUTPUT RESULTS ===
-console.log("Seed:", seed);
-console.log("Generated Primes:", p, q);
-console.log("Public Key PEM:\n", publicKeyPem);
-console.log("Private Key PEM:\n", privateKeyPem);
-console.log("Plaintext:", plaintext);
-console.log("Encrypted:", ciphertext);
-console.log("Decrypted:", decryptedText);
+// const {
+//   seed,
+//   p,
+//   q,
+//   publicKey,
+//   privateKey,
+//   publicKeyPem,
+//   privateKeyPem
+// } = getKeyPair();
+
+// const plaintext = "Hello RSA!";
+// const ciphertext = rsaEncrypt(plaintext, publicKey);
+// const decryptedText = rsaDecrypt(ciphertext, privateKey);
+
+// // === OUTPUT RESULTS ===
+// console.log("Seed:", seed);
+// console.log("Generated Primes:", p, q);
+// console.log("Public Key PEM:\n", publicKeyPem);
+// console.log("Private Key PEM:\n", privateKeyPem);
+// console.log("Plaintext:", plaintext);
+// console.log("Encrypted:", ciphertext);
+// console.log("Decrypted:", decryptedText);

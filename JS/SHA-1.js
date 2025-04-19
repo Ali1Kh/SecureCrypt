@@ -6,9 +6,7 @@ function toHexa(val) {
 }
 
 // ? Main Function : Compute SHA-1 Hash of Input Text
-function hashWithSha1() {
-  const text = document.getElementById("sha1InputText").value;
-
+function hashWithSha1(text) {
   // ? Step 1 : Get Ascii Code For Each Character
   let charsAsciCodes = [];
   for (let i = 0; i < text.length; i++) {
@@ -111,6 +109,26 @@ function hashWithSha1() {
   const hash = toHexa(h0) + toHexa(h1) + toHexa(h2) + toHexa(h3) + toHexa(h4);
 
   // ? Step 14 : Output Result
-  document.getElementById("sha1OutputText").value = hash;
+
   return hash;
+}
+
+function generateHash(id) {
+  let text = document.getElementById(id).value;
+  let hashedText = hashWithSha1(text);
+  document.getElementById("sha1OutputText").value = hashedText;
+}
+
+function verifySha1() {
+  let text = document.getElementById("sha1VerifyInput").value;
+  let hash = document.getElementById("sha1VerifyHash").value;
+  let hashedText = hashWithSha1(text);
+
+  if (hashedText === hash) {
+    document.getElementById("sha1VerifyInput").style.border = "2px solid green";
+    document.getElementById("sha1VerifyHash").style.border = "2px solid green";
+  } else {
+    document.getElementById("sha1VerifyInput").style.border = "2px solid red";
+    document.getElementById("sha1VerifyHash").style.border = "2px solid red";
+  }
 }

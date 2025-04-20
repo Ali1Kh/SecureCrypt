@@ -115,6 +115,19 @@ function hashWithSha1(text) {
 
 function generateHash(id) {
   let text = document.getElementById(id).value;
+  if (!text) {
+    document.getElementById(id).style.border = "2px solid red";
+    Toastify({
+      text: "Please enter text to hash!",
+      style: {
+        background: "red",
+        borderRadius: "5px",
+      },
+    }).showToast();
+    return;
+  } else {
+    document.getElementById(id).style.border = "";
+  }
   let hashedText = hashWithSha1(text);
   document.getElementById("sha1OutputText").value = hashedText;
 }
@@ -124,11 +137,60 @@ function verifySha1() {
   let hash = document.getElementById("sha1VerifyHash").value;
   let hashedText = hashWithSha1(text);
 
+  // if (!text && !hash) {
+  //   document.getElementById("sha1VerifyInput").style.border = "2px solid red";
+  //   document.getElementById("sha1VerifyHash").style.border = "2px solid red";
+  //   Toastify({
+  //     text: "Please enter text and hash to verify!",
+  //     style: {
+  //       background: "red",
+  //       borderRadius: "5px",
+  //     },
+  //   }).showToast();
+  //   return;
+  // } else
+  if (!text) {
+    document.getElementById("sha1VerifyInput").style.border = "2px solid red";
+    Toastify({
+      text: "Please enter text to hash!",
+      style: {
+        background: "red",
+        borderRadius: "5px",
+      },
+    }).showToast();
+    return;
+  } else if (!hash) {
+    document.getElementById("sha1VerifyInput").style.border = "";
+    document.getElementById("sha1VerifyHash").style.border = "2px solid red";
+    Toastify({
+      text: "Please enter hash to verify!",
+      style: {
+        background: "red",
+        borderRadius: "5px",
+      },
+    }).showToast();
+    return;
+  } 
+  // Verify
   if (hashedText === hash) {
     document.getElementById("sha1VerifyInput").style.border = "2px solid green";
     document.getElementById("sha1VerifyHash").style.border = "2px solid green";
+    Toastify({
+      text: "Hash verified successfully!",
+      style: {
+        background: "green",
+        borderRadius: "5px",
+      },
+    }).showToast();
   } else {
     document.getElementById("sha1VerifyInput").style.border = "2px solid red";
     document.getElementById("sha1VerifyHash").style.border = "2px solid red";
+    Toastify({
+      text: "Hash verification failed!",
+      style: {
+        background: "red",
+        borderRadius: "5px",
+      },
+    }).showToast();
   }
 }

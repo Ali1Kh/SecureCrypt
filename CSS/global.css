@@ -71,4 +71,7 @@ body {
 .showMore:hover > div > h5 {
   gap: 15px !important;
 }
- 
+
+img {
+  user-select: none !important;
+}

@@ -5,7 +5,7 @@ function toHexa(val) {
   return val.toString(16).padStart(8, "0");
 }
 
-// ? Main Function : Compute SHA-1 Hash of Input Text
+// ! Main Function : Compute SHA-1 Hash of Input Text
 function hashWithSha1(text) {
   // ? Step 1 : Get Ascii Code For Each Character
   let charsAsciCodes = [];
@@ -118,7 +118,7 @@ function generateHash(id) {
   if (!text) {
     document.getElementById(id).style.border = "2px solid red";
     Toastify({
-      text: "Please enter text to hash!",
+      text: "Please enter text to encrypt!",
       style: {
         background: "red",
         borderRadius: "5px",

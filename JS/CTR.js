@@ -1,112 +1,124 @@
-// Linear Congruential Generator (LCG) for key stream generation
-function generateKeyStream(seed, length) {
-    const a = 1664525;  // Multiplier
-    const c = 1013904223; // Increment
-    const m = Math.pow(2, 32); // Modulus
-    let keyStream = [];
-    let x = seed;
+// ! Generate lcg
+function generateLcg(length = 16) {
+  const a = 1664525;
+  const c = 1013904223;
+  const m = 2 ** 32;
+  let seed = Date.now();
 
-    for (let i = 0; i < length; i++) {
-        x = (a * x + c) % m;
-        // Convert to byte (0-255)
-        keyStream.push((x >> 16) & 0xFF);
-    }
+  let key = "";
+  for (let i = 0; i < length; i++) {
+    seed = (a * seed + c) % m;
+    const charCode = 97 + (seed % 26); // a-z
+    key += String.fromCharCode(charCode);
+  }
 
-    return keyStream;
+  return key;
 }
 
-// Convert string to array of character codes
-function stringToBytes(str) {
-    let bytes = [];
-    for (let i = 0; i < str.length; i++) {
-        bytes.push(str.charCodeAt(i));
-    }
-    return bytes;
+//! CTR encryption function
+
+function encryptWithCTR(PlainText) {
+  const text = PlainText.replaceAll(" ", "");
+
+  const keyString = generateLcg(16);
+  const key = CryptoJS.enc.Utf8.parse(keyString);
+
+  const ivString = "1234567890abcdef";
+  const ivBytes = CryptoJS.enc.Utf8.parse(ivString);
+
+  console.log("Generated Key: " + keyString);
+  console.log("Generated IV: " + ivString);
+
+  const blockSize = 16;
+  const data = CryptoJS.enc.Utf8.parse(text);
+  let encryptedResult = [];
+
+  for (let i = 0; i < data.sigBytes; i += blockSize) {
+    const block = data.words.slice(i / 4, (i + blockSize) / 4);
+
+    let counter = ivBytes.words.slice();
+    const blockIndex = Math.floor(i / blockSize);
+    counter[counter.length - 1] ^= blockIndex;
+
+    const counterEncrypted = CryptoJS.AES.encrypt(
+      CryptoJS.lib.WordArray.create(counter),
+      key,
+      {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.NoPadding,
+      }
+    ).ciphertext.words;
+
+    const xorResult = block.map((value, j) => value ^ counterEncrypted[j]);
+    encryptedResult = encryptedResult.concat(xorResult);
+  }
+
+  const encryptedBase64 = CryptoJS.enc.Base64.stringify(
+    CryptoJS.lib.WordArray.create(encryptedResult)
+  );
+
+  return { key: keyString, encrypted: encryptedBase64 };
 }
 
-// Convert byte (ASCII ) array to string
-function bytesToString(bytes) {
-    return String.fromCharCode(...bytes);
-}
-
-// XOR two byte arrays
-function xorBytes(arr1, arr2) {
-    let result = [];
-    for (let i = 0; i < arr1.length; i++) {
-        result.push(arr1[i] ^ arr2[i]);
-    }
-    return result;
-}
-
-// CTR encryption function
-function encryptCTR(plaintext, seed, nonce) {
-    const blockSize = 16;
-    const plaintextBytes = stringToBytes(plaintext);
-    let ciphertextBytes = [];
-
-    for (let i = 0; i < plaintextBytes.length; i += blockSize) {
-        // Create counter block: nonce + counter
-        let counter = Math.floor(i / blockSize);
-        let counterBlock = [];
-
-        // Add nonce (fixed)
-        for (let j = 0; j < nonce.length; j++) {
-            counterBlock.push(nonce[j]);
-        }
-
-        // Add counter (as 4 bytes)
-        for (let j = 3; j >= 0; j--) {
-            counterBlock.push((counter >> (8 * j)) & 0xFF);
-        }
-
-        // Generate key stream block
-        let keyStream = generateKeyStream(seed + counter, blockSize);
-
-        // Slice plaintext block
-        let block = plaintextBytes.slice(i, i + blockSize);
-
-        // XOR block with keystream
-        let cipherBlock = xorBytes(block, keyStream.slice(0, block.length));
-        ciphertextBytes.push(...cipherBlock);
-    }
-
-    return ciphertextBytes;
-}
-
-// Decryption is same as encryption in CTR mode
+// Decryption in CTR mode
 function decryptCTR(ciphertextBytes, seed, nonce) {
-    const blockSize = 16;
-    let decryptedBytes = [];
-
-    for (let i = 0; i < ciphertextBytes.length; i += blockSize) {
-        let counter = Math.floor(i / blockSize);
-        let counterBlock = [];
-
-        for (let j = 0; j < nonce.length; j++) {
-            counterBlock.push(nonce[j]);
-        }
-
-        for (let j = 3; j >= 0; j--) {
-            counterBlock.push((counter >> (8 * j)) & 0xFF);
-        }
-
-        let keyStream = generateKeyStream(seed + counter, blockSize);
-
-        let block = ciphertextBytes.slice(i, i + blockSize);
-        let plainBlock = xorBytes(block, keyStream.slice(0, block.length));
-        decryptedBytes.push(...plainBlock);
-    }
-
-    return bytesToString(decryptedBytes);
+  return;
 }
 
-// Example usage:
-let message = "Hello, this is a test!";
-let seed = 123456; // LCG seed
-let nonce = [1, 2, 3, 4]; // Fixed nonce (4 bytes)
+function encrypt(id) {
+  let text = document.getElementById(id).value;
+  if (!text) {
+    document.getElementById(id).style.border = "2px solid red";
+    Toastify({
+      text: "Please enter text to hash!",
+      style: {
+        background: "red",
+        borderRadius: "5px",
+      },
+    }).showToast();
+    return;
+  } else {
+    document.getElementById(id).style.border = "";
+  }
+  let result = encryptWithCTR(text);
+  document.getElementById("encryptOutput").value = result.encrypted;
+  document.getElementById("secretKey").innerHTML = result.key;
+}
+function encrypt(id) {
+  let text = document.getElementById(id).value;
+  if (!text) {
+    document.getElementById(id).style.border = "2px solid red";
+    Toastify({
+      text: "Please enter text to hash!",
+      style: {
+        background: "red",
+        borderRadius: "5px",
+      },
+    }).showToast();
+    return;
+  } else {
+    document.getElementById(id).style.border = "";
+  }
+  let result = encryptWithCTR(text);
+  document.getElementById("encryptOutput").value = result.encrypted;
+  document.getElementById("secretKey").value = result.key;
+}
 
-let encrypted = encryptCTR(message, seed, nonce);
-console.log("Encrypted bytes:", encrypted);
-
-let decrypted = decryptCTR(encrypted, seed, nonce);
-console.log("Decrypted text:", decrypted);
+function decrypt(id) {
+  let hashed = document.getElementById(id).value;
+  if (!hashed) {
+    document.getElementById(id).style.border = "2px solid red";
+    Toastify({
+      text: "Please enter text to decrypt!",
+      style: {
+        background: "red",
+        borderRadius: "5px",
+      },
+    }).showToast();
+    return;
+  } else {
+    document.getElementById(id).style.border = "";
+  }
+  let result = decryptCTR(hashed);
+  document.getElementById("decryptOutput").value = result;
+}

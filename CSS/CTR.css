@@ -97,6 +97,7 @@
   border: 1px solid #e4a985;
   background-color: #dfd7c9;
   margin-left: 13%;
+  margin-top: 25px;
   cursor: pointer;
   transition: background 0.8s, transform 0.1s, box-shadow 0.1s;
   color: #9b745b;
@@ -120,7 +121,6 @@
   padding-top: 15px;
   padding-left: 20px;
   padding-right: 45px;
-  margin-bottom: 15px;
   font-size: 20px;
   box-sizing: border-box;
 }

@@ -54,9 +54,10 @@
 
 
             <p class="finaly-text-inBox">Encrypted Output</p>
-            <div class="textarea-container">
-              <textarea id="encryptOutput" class="textarea-appear"
+            <div class="textarea-container position-relative">
+              <textarea id="encryptOutput" readonly class="textarea-appear"
                 placeholder="Encrypted text will appear here"></textarea>
+              <span onclick="copyToClipboard('encryptOutput')" class="material-symbols-outlined">content_copy</span>
             </div>
 
             <button class="Encrypt-btu" type="button" onclick="encrypt('plainTextInput')">Encrypt</button>
@@ -73,11 +74,11 @@
             </p>
             <p class="bold-text-inBox">Ciphertext</p>
 
-            <textarea class="hash-textarea" name="" id="" placeholder="Enter text to decrypt"></textarea>
+            <textarea class="hash-textarea" name="" id="cipherTextInput" placeholder="Enter text to decrypt"></textarea>
 
             <div class="d-flex align-items-center gap-3 mt-3">
               <p class="finaly-text-inBox m-0">Secret Key:</p>
-              <input class="secretKey" placeholder="Enter Secret Key" />
+              <input id="secretKeyInput" class="secretKey" placeholder="Enter Secret Key" />
             </div>
 
             <!-- <div class="textarea-wrapper">
@@ -85,9 +86,9 @@
             </div> -->
 
             <p class="finaly-text-inBox">Decryption Output</p>
-            <textarea id="decryptOutput" class="textarea-appear" placeholder="Decrypted Output"></textarea>
+            <textarea readonly id="decryptOutput" class="textarea-appear" placeholder="Decrypted Output"></textarea>
 
-            <button onclick="decrypt()" class="Encrypt-btu" type="button">
+            <button onclick="decrypt('cipherTextInput')" class="Encrypt-btu" type="button">
               Decrypt
             </button>
           </div>

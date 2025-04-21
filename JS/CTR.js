@@ -1,3 +1,4 @@
+let ivString = "1234567890abcdef";
 // ! Generate lcg
 function generateLcg(length = 16) {
   const a = 1664525;
@@ -23,7 +24,6 @@ function encryptWithCTR(PlainText) {
   const keyString = generateLcg(16);
   const key = CryptoJS.enc.Utf8.parse(keyString);
 
-  const ivString = "1234567890abcdef";
   const ivBytes = CryptoJS.enc.Utf8.parse(ivString);
 
   console.log("Generated Key: " + keyString);
@@ -61,8 +61,39 @@ function encryptWithCTR(PlainText) {
 }
 
 // Decryption in CTR mode
-function decryptCTR(ciphertextBytes, seed, nonce) {
-  return;
+function decryptCTR(base64Cipher, keyString, ivString) {
+  const key = CryptoJS.enc.Utf8.parse(keyString);
+  const ivBytes = CryptoJS.enc.Utf8.parse(ivString);
+
+  const encryptedBytes = CryptoJS.enc.Base64.parse(base64Cipher);
+  const blockSize = 16;
+  let decryptedResult = [];
+
+  for (let i = 0; i < encryptedBytes.sigBytes; i += blockSize) {
+    const block = encryptedBytes.words.slice(i / 4, (i + blockSize) / 4);
+
+    const counter = ivBytes.words.slice();
+    const blockIndex = Math.floor(i / blockSize);
+    counter[counter.length - 1] ^= blockIndex;
+
+    const counterWordArray = CryptoJS.lib.WordArray.create(counter);
+
+    const aesEcb = CryptoJS.AES.encrypt(counterWordArray, key, {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.NoPadding, // CTR uses NoPadding
+    });
+
+    const counterEncrypted = aesEcb.ciphertext.words;
+
+    const xorResult = block.map((byte, j) => byte ^ counterEncrypted[j]);
+    decryptedResult = decryptedResult.concat(xorResult);
+  }
+
+  return CryptoJS.enc.Utf8.stringify(
+    CryptoJS.lib.WordArray.create(decryptedResult)
+  )
+    .replace(/\0+$/, "")
+    .trim();
 }
 
 function encrypt(id) {
@@ -119,6 +150,9 @@ function decrypt(id) {
   } else {
     document.getElementById(id).style.border = "";
   }
-  let result = decryptCTR(hashed);
+  let secretKey = document.getElementById("secretKey").value;
+  let result = decryptCTR(hashed, secretKey, ivString);
+  console.log(result);
+
   document.getElementById("decryptOutput").value = result;
 }

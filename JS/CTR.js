@@ -115,25 +115,6 @@ function encrypt(id) {
   document.getElementById("encryptOutput").value = result.encrypted;
   document.getElementById("secretKey").innerHTML = result.key;
 }
-function encrypt(id) {
-  let text = document.getElementById(id).value;
-  if (!text) {
-    document.getElementById(id).style.border = "2px solid red";
-    Toastify({
-      text: "Please enter text to hash!",
-      style: {
-        background: "red",
-        borderRadius: "5px",
-      },
-    }).showToast();
-    return;
-  } else {
-    document.getElementById(id).style.border = "";
-  }
-  let result = encryptWithCTR(text);
-  document.getElementById("encryptOutput").value = result.encrypted;
-  document.getElementById("secretKey").value = result.key;
-}
 
 function decrypt(id) {
   let hashed = document.getElementById(id).value;

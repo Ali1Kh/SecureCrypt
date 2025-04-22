@@ -19,27 +19,30 @@ function generateLcg(length = 16) {
 //! CTR encryption function
 
 function encryptWithCTR(PlainText) {
+  //* Remove all spaces from the  text
   const text = PlainText.replaceAll(" ", "");
 
+  //* Generate a secret key with lcg
   const keyString = generateLcg(16);
   const key = CryptoJS.enc.Utf8.parse(keyString);
-
+  //* Generate Convert IV to bytes
   const ivBytes = CryptoJS.enc.Utf8.parse(ivString);
-
-  console.log("Generated Key: " + keyString);
-  console.log("Generated IV: " + ivString);
+  //* Convert the plaintext to a format suitable for cryptographic operations
+  const data = CryptoJS.enc.Utf8.parse(text);
 
   const blockSize = 16;
-  const data = CryptoJS.enc.Utf8.parse(text);
   let encryptedResult = [];
 
+  //* Encryption for each block
   for (let i = 0; i < data.sigBytes; i += blockSize) {
     const block = data.words.slice(i / 4, (i + blockSize) / 4);
 
+    //* Generate Counter
     let counter = ivBytes.words.slice();
     const blockIndex = Math.floor(i / blockSize);
+    //* XOR the last word of the counter with the block index
     counter[counter.length - 1] ^= blockIndex;
-
+    //* Encrypt Counter
     const counterEncrypted = CryptoJS.AES.encrypt(
       CryptoJS.lib.WordArray.create(counter),
       key,
@@ -48,11 +51,13 @@ function encryptWithCTR(PlainText) {
         padding: CryptoJS.pad.NoPadding,
       }
     ).ciphertext.words;
-
+    //*  XOR the Message with Counter
     const xorResult = block.map((value, j) => value ^ counterEncrypted[j]);
+    //* Add the encrypted block to the result
     encryptedResult = encryptedResult.concat(xorResult);
   }
 
+  //* Convert to Base64
   const encryptedBase64 = CryptoJS.enc.Base64.stringify(
     CryptoJS.lib.WordArray.create(encryptedResult)
   );
@@ -62,29 +67,36 @@ function encryptWithCTR(PlainText) {
 
 // Decryption in CTR mode
 function decryptCTR(base64Cipher, keyString, ivString) {
+  //* Parse key string to a format for CryptoJS
   const key = CryptoJS.enc.Utf8.parse(keyString);
+  //* Parse IV to bytes
   const ivBytes = CryptoJS.enc.Utf8.parse(ivString);
-
+  //* Convert the Base64 ciphertext
   const encryptedBytes = CryptoJS.enc.Base64.parse(base64Cipher);
   const blockSize = 16;
   let decryptedResult = [];
 
   for (let i = 0; i < encryptedBytes.sigBytes; i += blockSize) {
+    //* Extract the current block of ciphertext
     const block = encryptedBytes.words.slice(i / 4, (i + blockSize) / 4);
-
+    //*  Generate the same counter value that was used during encryption
     const counter = ivBytes.words.slice();
     const blockIndex = Math.floor(i / blockSize);
+    //* XOR the last word of the counter with the block index
     counter[counter.length - 1] ^= blockIndex;
 
+    //* Convert the counter to WordArray
     const counterWordArray = CryptoJS.lib.WordArray.create(counter);
 
+    //* Encrypt Counter Value
     const aesEcb = CryptoJS.AES.encrypt(counterWordArray, key, {
       mode: CryptoJS.mode.ECB,
       padding: CryptoJS.pad.NoPadding, // CTR uses NoPadding
     });
 
+    //* Get the encrypted counter value
     const counterEncrypted = aesEcb.ciphertext.words;
-
+    //* XOR the ciphertext block with the encrypted counter to recover plaintext
     const xorResult = block.map((byte, j) => byte ^ counterEncrypted[j]);
     decryptedResult = decryptedResult.concat(xorResult);
   }

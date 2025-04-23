@@ -1,8 +1,10 @@
+/* === Base Setup === */
 * {
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
 
+/* === Title === */
 .main-text h1 {
   display: flex;
   justify-content: center;
@@ -11,6 +13,7 @@
   font-size: 40px;
 }
 
+/* === Layout Containers === */
 .coun {
   display: flex;
   flex-direction: row;
@@ -28,16 +31,18 @@
   margin: 20px;
 }
 
-.sc-text-inBox {
-  color: var(--text-muted);
-}
-
+/* === Inner Box === */
 .inbox {
   padding: 35px;
 }
 
 .inbox h1 {
   margin-bottom: 7px;
+}
+
+/* === Typography === */
+.sc-text-inBox {
+  color: var(--text-muted);
 }
 
 .bold-text-inBox {
@@ -47,131 +52,222 @@
   margin-bottom: 10px;
 }
 
-.hash-textarea {
-  width: 100%;
-  height: 80px;
-  border-radius: 7px;
-  border: 1.5px solid var(--textarea-border);
-  outline: none;
-  resize: none;
-  padding: 13px;
-  box-shadow: var(--textarea-shadow);
-  font-size: 20px;
-}
-
-.hash-textarea::placeholder {
-  color: var(--placeholder-color);
-}
-
 .finaly-text-inBox {
   color: var(--text);
   font-size: 24px;
   margin-top: 20px;
 }
 
+/* === Textareas === */
+.hash-textarea,
+.textarea-appear,
+.textarea-copyHash {
+  width: 100%;
+  border-radius: 7px;
+  border: 1.5px solid var(--textarea-border);
+  outline: none;
+  resize: none;
+  box-shadow: var(--textarea-shadow);
+  font-size: 20px;
+  padding: 13px;
+  box-sizing: border-box;
+}
+
+.hash-textarea {
+  height: 80px;
+}
+
+.textarea-appear {
+  height: 120px;
+  padding-top: 15px;
+  padding-left: 20px;
+  padding-right: 45px; 
+}
+
 .textarea-copyHash {
   height: 57px;
-  width: 100%;
-  outline: none;
-  border-radius: 5px;
-  border: solid 1px var(--textarea-border);
-  resize: none;
   padding-top: 15px;
   padding-left: 20px;
   margin-top: 15px;
-  font-size: 20px;
 }
 
-.textarea-wrapper {
-  position: relative;
+.hash-textarea::placeholder,
+.textarea-appear::placeholder {
+  color: var(--placeholder-color);
 }
 
-.Encrypt-btu {
+/* === Buttons === */
+.Encrypt-btu,
+.GenerateKeys-btn {
   width: 358px;
   height: 61px;
   border-radius: 10px;
   outline: none;
   border: 1px solid var(--btn-border);
   background-color: var(--btn-bg);
-  margin-left: 13%;
-  margin-top: 25px;
   cursor: pointer;
   transition: var(--btn-transition);
   color: var(--mainClr);
   box-shadow: var(--btn-shadow);
   font-size: 20px;
-}
-
-.Encrypt-btu:active {
-  transform: scale(0.96);
-  box-shadow: var(--btn-active-shadow);
-  transition: transform 0.1s, box-shadow 0.1s;
-}
-
-.textarea-appear {
-  height: 120px;
-  width: 100%;
-  outline: none;
-  border-radius: 5px;
-  border: solid 1px var(--textarea-border);
-  resize: none;
-  padding-top: 15px;
-  padding-left: 20px;
-  padding-right: 45px;
-  font-size: 20px;
-  box-sizing: border-box;
-}
-
-.secretKey {
-  border: solid 1px var(--textarea-border);
-  border-radius: 5px;
-  outline: none;
-  font-size: 18px;
-  padding: 4px 10px 0px 8px;
-  flex-grow: 1;
+  margin-top: 25px;
 }
 
 .GenerateKeys-btn {
   width: 100%;
-  height: 61px;
-  border-radius: 10px;
-  outline: none;
-  border: 1px solid var(--btn-border);
-  background-color: var(--btn-bg);
   margin-top: 20px;
-  cursor: pointer;
-  transition: var(--btn-transition);
-  color: var(--mainClr);
-  box-shadow: var(--btn-shadow);
-  font-size: 20px;
 }
 
+.Encrypt-btu:active,
 .GenerateKeys-btn:active {
   transform: scale(0.96);
   box-shadow: var(--btn-active-shadow);
   transition: transform 0.1s, box-shadow 0.1s;
 }
 
+/* === Secret Key Input === */
+.secretKey {
+  border: solid 1px var(--textarea-border);
+  border-radius: 5px;
+  outline: none;
+  font-size: 18px;
+  padding: 4px 40px 4px 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* === Secret Key + Copy Container === */
+.secret-key-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.secret-key-label {
+  font-size: 24px;
+  margin: 0;
+}
+
+.secret-key-wrapper {
+  position: relative;
+  flex-grow: 1;
+}
+
+/* === Copy Icon Styles === */
 .material-symbols-outlined {
   position: absolute;
-  left: 90%;
-  top: 50%;
-  transform: translateY(-50%);
   cursor: pointer;
   user-select: none !important;
   color: var(--copy-icon);
   transition: var(--icon-transition);
 }
 
-.copy-icon-1 {
-  color: var(--copy-icon);
+/* Copy icon inside input */
+.copy-icon-inside {
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.material-symbols-outlined:hover {
+/* Copy icon inside textarea */
+.copy-icon-inside-textarea {
+  right: 10px;
+  bottom: 10px;
+}
+
+/* Generic hover/active states */
+.material-symbols-outlined:hover,
+.copy-icon-inside:hover,
+.copy-icon-inside-textarea:hover {
   color: var(--copy-icon-hover);
 }
 
-.material-symbols-outlined:active {
+.material-symbols-outlined:active,
+.copy-icon-inside:active,
+.copy-icon-inside-textarea:active {
   transform: scale(0.85);
   color: var(--copy-icon-active);
+}
+
+/* === Wrapper for textarea copy icon === */
+.textarea-container {
+  position: relative;
+}
+
+/* === Responsive Media Queries === */
+@media (max-width: 992px) {
+  .coun {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .box {
+    width: 90%;
+    margin: 10px 0;
+  }
+
+  .Encrypt-btu {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .bold-text-inBox,
+  .finaly-text-inBox {
+    font-size: 20px;
+    width: 100%;
+  }
+
+  .hash-textarea,
+  .textarea-appear,
+  .textarea-copyHash,
+  .secretKey {
+    font-size: 18px;
+  }
+
+  .inbox {
+    padding: 20px;
+  }
+
+  .main-text h1 {
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .copy-icon-inside {
+    right: 8px;
+  }
+
+  .copy-icon-inside-textarea {
+    right: 8px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-text h1 {
+    font-size: 28px;
+  }
+
+  .Encrypt-btu,
+  .GenerateKeys-btn {
+    height: 50px;
+    font-size: 18px;
+  }
+
+  .secretKey {
+    font-size: 16px;
+  }
+
+  .bold-text-inBox,
+  .finaly-text-inBox {
+    font-size: 18px;
+  }
+
+  .copy-icon-inside {
+    right: 6px;
+  }
+
+  .copy-icon-inside-textarea {
+    right: 6px;
+  }
 }

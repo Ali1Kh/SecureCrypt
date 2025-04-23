@@ -125,7 +125,7 @@ function encrypt(id) {
   }
   let result = encryptWithCTR(text);
   document.getElementById("encryptOutput").value = result.encrypted;
-  document.getElementById("secretKey").innerHTML = result.key;
+  document.getElementById("secretKey").value = result.key;
 }
 
 function decrypt(id) {

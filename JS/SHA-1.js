@@ -35,10 +35,7 @@ function hashWithSha1(text) {
   let binaryOfSummationBitsx64 = (charsInTextLength - 1).toString(2);
   // * Make Number For Summation Bits 64 Bit
   if (binaryOfSummationBitsx64.length < 64) {
-    let binaryOfSummationBitsLength = binaryOfSummationBitsx64.length;
-    for (let i = 0; i < 64 - binaryOfSummationBitsLength; i++) {
-      binaryOfSummationBitsx64 = "0" + binaryOfSummationBitsx64;
-    }
+    binaryOfSummationBitsx64 = binaryOfSummationBitsx64.padStart(64, "0");
   }
   bitsText += binaryOfSummationBitsx64;
 

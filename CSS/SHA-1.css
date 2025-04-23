@@ -129,3 +129,72 @@
   transform: scale(0.85);
   color: var(--copy-icon-active);
 }
+
+@media (max-width: 768px) {
+  .main-text h1 {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .coun {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 0 15px;
+  }
+
+  .box {
+    width: 100%;
+    max-width: 95%;
+    margin-bottom: 25px;
+  }
+
+  .bold-text-inBox,
+  .finaly-text-inBox {
+    font-size: 18px;
+    width: 100%;
+  }
+
+  .hash-textarea,
+  .textarea-copyHash {
+    font-size: 16px;
+    padding: 15px;
+  }
+
+  .Generate-btu {
+    width: 100%;
+    margin-left: 0;
+    font-size: 18px;
+  }
+
+  .material-symbols-outlined {
+    top: 28px;
+    right: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-text h1 {
+    font-size: 24px;
+    padding-bottom: 20px;
+  }
+
+  .inbox h1 {
+    font-size: 22px;
+  }
+
+  .sc-text-inBox {
+    font-size: 14px;
+  }
+
+  .Generate-btu {
+    height: 50px;
+    font-size: 16px;
+  }
+
+  .textarea-copyHash {
+    height: 50px;
+    padding-top: 12px;
+    padding-left: 15px;
+  }
+}

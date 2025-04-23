@@ -1,20 +1,40 @@
 :root {
-  --bgClr: #f8fafc;
-  --bgClr2: #f0ece4;
-  --bgClr3: #ece7de;
+  
+  --bgClr: #F8FAFC;
+  --bgClr2: rgba(240, 236, 228, 0.8);
+  --bgClr3: rgba(240, 236, 228, 0.6);
   --bgClr4: #dfd7c9;
   --mainClr: #9b745b;
-  --text: #2e211c;
-  --text2: #7e8088;
+  --text: #2E211C;
+  --text2: rgba(46, 33, 28,0.6);
   --green: #22c55e;
   --red: #ef4444;
   --yellow: #f59e0b;
+
+  --box-bg: rgba(240, 236, 228, 0.6);
+  --box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.1);
+  --textarea-border: #9b745b;
+  --textarea-shadow: 0px 0px 2px 0px #9b745b;
+  --placeholder-color: #2e211c80;
+  --text-muted: #2e211c99;
+  --btn-bg: #dfd7c9;
+  --btn-border: #e4a985;
+  --btn-shadow: 0 0px 10px #e4a985;
+  --btn-active-shadow: 0 2px 5px #c89b78 inset;
+  --copy-icon: #c0a898;
+  --copy-icon-hover: #d99160;
+  --copy-icon-active: #b07050;
+
+  --btn-transition: background-color 0.8s, transform 0.1s, box-shadow 0.1s;
+  --icon-transition: transform 0.1s ease, color 0.2s ease;
+  --universal-transition: all 0.3s ease-in-out;
 }
 
 * {
-  font-family: "National Park", sans-serif;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -52,7 +72,7 @@ body {
 }
 
 .transition {
-  transition: all 0.3s ease-in-out;
+  transition: var(--universal-transition);
 }
 
 .pointer {

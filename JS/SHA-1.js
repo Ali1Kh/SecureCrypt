@@ -26,11 +26,10 @@ function hashWithSha1(text) {
   // ? Step 4 : Add Extra Bit In Last of binary numbers
   bitsText += "1";
 
-  // ? Step 5 : Add 0 To Reach 448 Bits
+  //* Store the length of the original text
   let charsInTextLength = bitsText.length;
-  for (let i = 0; i < 448 - charsInTextLength; i++) {
-    bitsText += "0";
-  }
+  // ? Step 5 : Add 0 To Reach 448 Bits
+  bitsText = bitsText.padEnd(448, "0");
 
   // ? Step 6 : Append original length as 64-bit binary
   let binaryOfSummationBitsx64 = (charsInTextLength - 1).toString(2);
@@ -170,7 +169,7 @@ function verifySha1() {
       },
     }).showToast();
     return;
-  } 
+  }
   // Verify
   if (hashedText === hash) {
     document.getElementById("sha1VerifyInput").style.border = "2px solid green";

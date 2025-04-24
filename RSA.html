@@ -149,7 +149,9 @@
                   style="font-size: clamp(0.8rem, 2.5vw, 1rem);"></textarea>
               </div>
               <div class="dfcc w-100 align-items-end mt-4" style="height: 80px; height: 100px;">
-                <div class="button transition pointer dfcc ourShadow fw-bolder" onclick="decrypt()" style="
+                <div class="button transition pointer dfcc ourShadow fw-bolder"
+                  onclick="document.querySelector('input[name=\'keyType\']:checked').value == 'standerdKey' ? decrypt() : decryptLcg()"
+                  style="
                       background-color: var(--bgClr4);
                       border-radius: 10px;
                       height: 45px;

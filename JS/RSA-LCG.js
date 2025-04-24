@@ -15,7 +15,7 @@ function extendedGCD(a, b) {
   return { gcd, x: y1, y: x1 - Math.floor(a / b) * y1 };
 }
 
-function modInverse(a, m) {
+function modInverseWithLcgKey(a, m) {
   const { gcd, x } = extendedGCD(a, m);
   if (gcd !== 1) throw new Error("Inverse doesn't exist.");
   return ((x % m) + m) % m;
@@ -34,7 +34,7 @@ function modInverseLCG(e, phi) {
 
     if (candidate > 1 && gcd(e, candidate) === 1) {
       try {
-        const inv = modInverse(e, phi);
+        const inv = modInverseWithLcgKey(e, phi);
         return inv;
       } catch {}
     }
@@ -44,7 +44,7 @@ function modInverseLCG(e, phi) {
 }
 
 //  RSA Key Generation Function with fixed primes & LCG for private key
-function rsa() {
+function rsaLcg() {
   const p = 61;
   const q = 53;
   const n = p * q;
@@ -110,7 +110,7 @@ function fromBase64(b64) {
 }
 
 //  Encrypt text to base64
-function encryptTextBase64(text, publicKey) {
+function encryptTextBase64Lcg(text, publicKey) {
   const [n, e] = publicKey;
 
   const encoder = new TextEncoder();
@@ -131,7 +131,7 @@ function encryptTextBase64(text, publicKey) {
 }
 
 //  Decrypt base64 to text
-function decryptTextBase64(base64Cipher, privateKey) {
+function decryptTextBase64Lcg(base64Cipher, privateKey) {
   const [n, d] = privateKey;
 
   const encryptedBytes = fromBase64(base64Cipher);
@@ -143,29 +143,29 @@ function decryptTextBase64(base64Cipher, privateKey) {
 }
 
 //  Main Logic
-let { publicKey: publicKeyLcg, privateKey: privateKeyLcg } = rsa();
+let { publicKey: publicKeyLcg, privateKey: privateKeyLcg } = rsaLcg();
 
 //  Bind to Encrypt Button
 function encryptWithLcg() {
   const plainText = document.getElementById("plainText").value.trim();
   const outputField = document.getElementById("encryptOutput");
   console.log("Done with LCG");
-  
+
   try {
-    const encrypted = encryptTextBase64(plainText, publicKeyLcg);
+    const encrypted = encryptTextBase64Lcg(plainText, publicKeyLcg);
     outputField.value = encrypted;
   } catch (err) {
-    alert(err.message);
+    console.log(err.message);
   }
 }
 
 //  Bind to Decrypt Button
-function decrypt() {
+function decryptLcg() {
   const cipherText = document.getElementById("cipherText").value.trim();
   const outputField = document.getElementById("decryptOutput");
 
   try {
-    const decrypted = decryptTextBase64(cipherText, privateKeyLcg);
+    const decrypted = decryptTextBase64Lcg(cipherText, privateKeyLcg);
     outputField.value = decrypted;
   } catch (err) {
     alert("Decryption failed: " + err.message);

@@ -162,3 +162,4 @@ function decrypt(id) {
 
   document.getElementById("decryptOutput").value = result;
 }
+

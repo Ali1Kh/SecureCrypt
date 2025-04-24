@@ -1,4 +1,5 @@
 let ivString = "1234567890abcdef";
+
 // ! Generate lcg
 function generateLcg(length = 16) {
   const a = 1664525;
@@ -16,10 +17,10 @@ function generateLcg(length = 16) {
   return key;
 }
 
-//! CTR encryption function
+//! CTR encryption function with space replacement
 function encryptWithCTR(PlainText) {
-  //* Remove all spaces from the  text
-  const text = PlainText.replaceAll(" ", "");
+  //* Remove all spaces from the text and replace with a special symbol
+  const text = PlainText.replaceAll(" ", "#");
 
   //* Generate a secret key with lcg
   const keyString = generateLcg(16);
@@ -50,7 +51,7 @@ function encryptWithCTR(PlainText) {
         padding: CryptoJS.pad.NoPadding,
       }
     ).ciphertext.words;
-    //*  XOR the Message with Counter
+    //* XOR the Message with Counter
     const xorResult = block.map((value, j) => value ^ counterEncrypted[j]);
     //* Add the encrypted block to the result
     encryptedResult = encryptedResult.concat(xorResult);
@@ -64,7 +65,7 @@ function encryptWithCTR(PlainText) {
   return { key: keyString, encrypted: encryptedBase64 };
 }
 
-// Decryption in CTR mode
+// Decryption in CTR mode with space replacement
 function decryptCTR(base64Cipher, keyString, ivString) {
   //* Parse key string to a format for CryptoJS
   const key = CryptoJS.enc.Utf8.parse(keyString);
@@ -78,7 +79,7 @@ function decryptCTR(base64Cipher, keyString, ivString) {
   for (let i = 0; i < encryptedBytes.sigBytes; i += blockSize) {
     //* Extract the current block of ciphertext
     const block = encryptedBytes.words.slice(i / 4, (i + blockSize) / 4);
-    //*  Generate the same counter value that was used during encryption
+    //* Generate the same counter value that was used during encryption
     const counter = ivBytes.words.slice();
     const blockIndex = Math.floor(i / blockSize);
     //* XOR the last word of the counter with the block index
@@ -100,11 +101,16 @@ function decryptCTR(base64Cipher, keyString, ivString) {
     decryptedResult = decryptedResult.concat(xorResult);
   }
 
-  return CryptoJS.enc.Utf8.stringify(
+  let decryptedText = CryptoJS.enc.Utf8.stringify(
     CryptoJS.lib.WordArray.create(decryptedResult)
   )
     .replace(/\0+$/, "")
     .trim();
+
+  //* Replace special symbol (#) back to space
+  decryptedText = decryptedText.replace(/#/g, ' ');
+
+  return decryptedText;
 }
 
 function encrypt(id) {
@@ -161,4 +167,3 @@ function decrypt(id) {
 
   document.getElementById("decryptOutput").value = result;
 }
-

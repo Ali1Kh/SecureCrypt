@@ -173,7 +173,8 @@
 /* Copy icon inside textarea */
 .copy-icon-inside-textarea {
   right: 10px;
-  bottom: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* Generic hover/active states */

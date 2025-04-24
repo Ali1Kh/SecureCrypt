@@ -1,4 +1,4 @@
-// ✅ Helper Function: Calculate GCD using the Euclidean Algorithm
+//  Helper Function: Calculate GCD using the Euclidean Algorithm
 function gcd(a, b) {
   while (b !== 0) {
     const temp = b;
@@ -8,7 +8,7 @@ function gcd(a, b) {
   return a;
 }
 
-// ✅ Extended Euclidean Algorithm to find modular inverse
+//  Extended Euclidean Algorithm to find modular inverse
 function extendedGCD(a, b) {
   if (b === 0) return { gcd: a, x: 1, y: 0 };
   const { gcd, x: x1, y: y1 } = extendedGCD(b, a % b);
@@ -21,7 +21,7 @@ function modInverse(a, m) {
   return ((x % m) + m) % m;
 }
 
-// ✅ Modular Inverse using LCG to generate candidates
+//  Modular Inverse using LCG to generate candidates
 function modInverseLCG(e, phi) {
   const a = 1103515245;
   const c = 12345;
@@ -43,7 +43,7 @@ function modInverseLCG(e, phi) {
   throw new Error("No modular inverse found using LCG.");
 }
 
-// ✅ RSA Key Generation Function with fixed primes & LCG for private key
+//  RSA Key Generation Function with fixed primes & LCG for private key
 function rsa() {
   const p = 61;
   const q = 53;
@@ -62,7 +62,7 @@ function rsa() {
   };
 }
 
-// ✅ Modular Exponentiation
+//  Modular Exponentiation
 function modPow(base, exp, mod) {
   let result = 1;
   base = base % mod;
@@ -74,7 +74,7 @@ function modPow(base, exp, mod) {
   return result;
 }
 
-// ✅ Convert number array to byte array
+//  Convert number array to byte array
 function numberArrayToBytes(arr, byteLength = 4) {
   const bytes = [];
   for (const num of arr) {
@@ -85,7 +85,7 @@ function numberArrayToBytes(arr, byteLength = 4) {
   return new Uint8Array(bytes);
 }
 
-// ✅ Convert byte array to number array
+//  Convert byte array to number array
 function bytesToNumberArray(bytes, byteLength = 4) {
   const result = [];
   for (let i = 0; i < bytes.length; i += byteLength) {
@@ -98,18 +98,18 @@ function bytesToNumberArray(bytes, byteLength = 4) {
   return result;
 }
 
-// ✅ Encode Uint8Array to base64
+//  Encode Uint8Array to base64
 function toBase64(bytes) {
   return btoa(String.fromCharCode(...bytes));
 }
 
-// ✅ Decode base64 to Uint8Array
+//  Decode base64 to Uint8Array
 function fromBase64(b64) {
   const binaryStr = atob(b64);
   return new Uint8Array([...binaryStr].map((ch) => ch.charCodeAt(0)));
 }
 
-// ✅ Encrypt text to base64
+//  Encrypt text to base64
 function encryptTextBase64(text, publicKey) {
   const [n, e] = publicKey;
 
@@ -130,7 +130,7 @@ function encryptTextBase64(text, publicKey) {
   return toBase64(encryptedBytes);
 }
 
-// ✅ Decrypt base64 to text
+//  Decrypt base64 to text
 function decryptTextBase64(base64Cipher, privateKey) {
   const [n, d] = privateKey;
 
@@ -142,29 +142,30 @@ function decryptTextBase64(base64Cipher, privateKey) {
   return decoder.decode(Uint8Array.from(decryptedBytes));
 }
 
-// ✅ Main Logic
-const { publicKey, privateKey } = rsa();
+//  Main Logic
+let { publicKey: publicKeyLcg, privateKey: privateKeyLcg } = rsa();
 
-// ✅ Bind to Encrypt Button
-function encrypt() {
+//  Bind to Encrypt Button
+function encryptWithLcg() {
   const plainText = document.getElementById("plainText").value.trim();
   const outputField = document.getElementById("encryptOutput");
-
+  console.log("Done with LCG");
+  
   try {
-    const encrypted = encryptTextBase64(plainText, publicKey);
+    const encrypted = encryptTextBase64(plainText, publicKeyLcg);
     outputField.value = encrypted;
   } catch (err) {
     alert(err.message);
   }
 }
 
-// ✅ Bind to Decrypt Button
+//  Bind to Decrypt Button
 function decrypt() {
   const cipherText = document.getElementById("cipherText").value.trim();
   const outputField = document.getElementById("decryptOutput");
 
   try {
-    const decrypted = decryptTextBase64(cipherText, privateKey);
+    const decrypted = decryptTextBase64(cipherText, privateKeyLcg);
     outputField.value = decrypted;
   } catch (err) {
     alert("Decryption failed: " + err.message);

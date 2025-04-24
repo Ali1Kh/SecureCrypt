@@ -111,6 +111,7 @@
   box-shadow: var(--btn-shadow);
   font-size: 20px;
   margin-top: 25px;
+  margin-right: auto !important;
 }
 
 .GenerateKeys-btn {

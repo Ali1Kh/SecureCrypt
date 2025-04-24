@@ -1,4 +1,4 @@
-// ✅ Helper Function: Calculate GCD using the Euclidean Algorithm
+// Helper Function: Calculate GCD using the Euclidean Algorithm
 function gcd(a, b) {
   while (b !== 0) {
     const temp = b;
@@ -8,7 +8,7 @@ function gcd(a, b) {
   return a;
 }
 
-// ✅ Extended Euclidean Algorithm to get modular inverse
+// Extended Euclidean Algorithm to get modular inverse
 function modInverse(e, phi) {
   let [a, b] = [e, phi];
   let [x0, x1] = [1, 0];
@@ -22,7 +22,7 @@ function modInverse(e, phi) {
   return x0 < 0 ? x0 + phi : x0;
 }
 
-// ✅ Generate two prime numbers using LCG
+// Generate two prime numbers using LCG
 function generateTwoPrimesFromSeed(seed) {
   const a = 1103515245;
   const c = 12345;
@@ -54,7 +54,7 @@ function generateTwoPrimesFromSeed(seed) {
   return primes;
 }
 
-// ✅ RSA Key Generation Function
+// RSA Key Generation Function
 function rsa() {
   const [p, q] = generateTwoPrimesFromSeed(Date.now());
   const n = p * q;
@@ -72,7 +72,7 @@ function rsa() {
   };
 }
 
-// ✅ Modular Exponentiation
+// Modular Exponentiation
 function modPow(base, exp, mod) {
   let result = 1;
   base = base % mod;
@@ -84,7 +84,7 @@ function modPow(base, exp, mod) {
   return result;
 }
 
-// ✅ Convert number array to byte array
+// Convert number array to byte array
 function numberArrayToBytes(arr, byteLength = 4) {
   const bytes = [];
   for (const num of arr) {
@@ -95,7 +95,7 @@ function numberArrayToBytes(arr, byteLength = 4) {
   return new Uint8Array(bytes);
 }
 
-// ✅ Convert byte array to number array
+// Convert byte array to number array
 function bytesToNumberArray(bytes, byteLength = 4) {
   const result = [];
   for (let i = 0; i < bytes.length; i += byteLength) {
@@ -108,18 +108,18 @@ function bytesToNumberArray(bytes, byteLength = 4) {
   return result;
 }
 
-// ✅ Encode Uint8Array to base64
+// Encode Uint8Array to base64
 function toBase64(bytes) {
   return btoa(String.fromCharCode(...bytes));
 }
 
-// ✅ Decode base64 to Uint8Array
+// Decode base64 to Uint8Array
 function fromBase64(b64) {
   const binaryStr = atob(b64);
-  return new Uint8Array([...binaryStr].map(ch => ch.charCodeAt(0)));
+  return new Uint8Array([...binaryStr].map((ch) => ch.charCodeAt(0)));
 }
 
-// ✅ Encrypt text to base64
+// Encrypt text to base64
 function encryptTextBase64(text, publicKey) {
   const [n, e] = publicKey;
 
@@ -140,26 +140,26 @@ function encryptTextBase64(text, publicKey) {
   return toBase64(encryptedBytes);
 }
 
-// ✅ Decrypt base64 to text
+// Decrypt base64 to text
 function decryptTextBase64(base64Cipher, privateKey) {
   const [n, d] = privateKey;
 
   const encryptedBytes = fromBase64(base64Cipher);
   const cipherNums = bytesToNumberArray(encryptedBytes);
 
-  const decryptedBytes = cipherNums.map(c => modPow(c, d, n));
+  const decryptedBytes = cipherNums.map((c) => modPow(c, d, n));
   const decoder = new TextDecoder();
   return decoder.decode(Uint8Array.from(decryptedBytes));
 }
 
-// ✅ Main Logic
-const { publicKey, privateKey } = rsa();
+// Main Logic
+let { publicKey, privateKey } = rsa();
 
-// ✅ Bind to Encrypt Button
+// Bind to Encrypt Button
 function encrypt() {
   const plainText = document.getElementById("plainText").value.trim();
   const outputField = document.getElementById("encryptOutput");
-
+  console.log("Done as Standerd Key");
   try {
     const encrypted = encryptTextBase64(plainText, publicKey);
     outputField.value = encrypted;
@@ -168,7 +168,7 @@ function encrypt() {
   }
 }
 
-// ✅ Bind to Decrypt Button
+// Bind to Decrypt Button
 function decrypt() {
   const cipherText = document.getElementById("cipherText").value.trim();
   const outputField = document.getElementById("decryptOutput");

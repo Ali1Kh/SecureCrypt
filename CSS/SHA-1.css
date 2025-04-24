@@ -97,7 +97,6 @@
   border: 1px solid var(--btn-border);
   background-color: var(--btn-bg);
   margin-top: 25px;
-  margin-left: 13%;
   cursor: pointer;
   transition: var(--btn-transition);
   color: var(--mainClr);

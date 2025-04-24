@@ -164,11 +164,11 @@ nav {
     font-size: 22px;
   }
 
-.navbar-nav {
-  align-items: start;
-  gap: 20px;
-  padding: 15px;
-}
+  .navbar-nav {
+    align-items: start;
+    gap: 20px;
+    padding: 15px;
+  }
 
   .algorithm-box,
   .member {

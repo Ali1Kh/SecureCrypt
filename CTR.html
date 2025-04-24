@@ -78,9 +78,13 @@
                 class="material-symbols-outlined copy-icon-inside-textarea">content_copy</span>
             </div>
 
-            <button class="Encrypt-btu" type="button" onclick="encrypt('plainTextInput')">
-              Encrypt
-            </button>
+
+            <div class="d-flex justify-content-center w-100">
+
+              <button class="Encrypt-btu" type="button" onclick="encrypt('plainTextInput')">
+                Encrypt
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -108,9 +112,11 @@
             <p class="finaly-text-inBox">Decryption Output</p>
             <textarea readonly id="decryptOutput" class="textarea-appear" placeholder="Decrypted Output"></textarea>
 
-            <button onclick="decrypt('cipherTextInput')" class="Encrypt-btu" type="button">
-              Decrypt
-            </button>
+            <div class="d-flex justify-content-center w-100">
+              <button onclick="decrypt('cipherTextInput')" class="Encrypt-btu" type="button">
+                Decrypt
+              </button>
+            </div>
           </div>
         </div>
       </div>

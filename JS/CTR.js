@@ -143,7 +143,20 @@ function decrypt(id) {
   } else {
     document.getElementById(id).style.border = "";
   }
-  let secretKey = document.getElementById("secretKey").value;
+  let secretKey = document.getElementById("secretKeyInput").value;
+  if (!secretKey) {
+    document.getElementById("secretKeyInput").style.border = "2px solid red";
+    Toastify({
+      text: "Please enter secret key to decrypt!",
+      style: {
+        background: "red",
+        borderRadius: "5px",
+      },
+    }).showToast();
+    return;
+  } else {
+    document.getElementById("secretKeyInput").style.border = "";
+  }
   let result = decryptCTR(hashed, secretKey, ivString);
   console.log(result);
 

@@ -17,7 +17,6 @@ function generateLcg(length = 16) {
 }
 
 //! CTR encryption function
-
 function encryptWithCTR(PlainText) {
   //* Remove all spaces from the  text
   const text = PlainText.replaceAll(" ", "");

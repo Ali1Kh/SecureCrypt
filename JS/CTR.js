@@ -108,7 +108,10 @@ function decryptCTR(base64Cipher, keyString, ivString) {
     ).ciphertext.words;
 
     //* XOR the ciphertext block with the encrypted counter to recover plaintext
-    const xorResult = block.map((value, j) => value ^ counterEncrypted[j]);
+    const xorResult = [];
+    for (let j = 0; j < block.length; j++) {
+      xorResult.push(block[j] ^ counterEncrypted[j]);
+    }
     decryptedResult = decryptedResult.concat(xorResult);
   }
 

@@ -60,7 +60,10 @@ function encryptWithCTR(inputText) {
       }
     ).ciphertext.words;
     //* XOR the Message with Counter
-    const xorResult = block.map((value, j) => value ^ counterEncrypted[j]);
+    const xorResult = [];
+    for (let j = 0; j < block.length; j++) {
+        xorResult[j] = block[j] ^ counterEncrypted[j];
+    }
     //* Add the encrypted block to the result
     encryptedResult = encryptedResult.concat(xorResult);
   }

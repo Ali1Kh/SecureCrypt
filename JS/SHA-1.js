@@ -132,19 +132,6 @@ function verifySha1() {
   let text = document.getElementById("sha1VerifyInput").value;
   let hash = document.getElementById("sha1VerifyHash").value;
   let hashedText = hashWithSha1(text);
-
-  // if (!text && !hash) {
-  //   document.getElementById("sha1VerifyInput").style.border = "2px solid red";
-  //   document.getElementById("sha1VerifyHash").style.border = "2px solid red";
-  //   Toastify({
-  //     text: "Please enter text and hash to verify!",
-  //     style: {
-  //       background: "red",
-  //       borderRadius: "5px",
-  //     },
-  //   }).showToast();
-  //   return;
-  // } else
   if (!text) {
     document.getElementById("sha1VerifyInput").style.border = "2px solid red";
     Toastify({

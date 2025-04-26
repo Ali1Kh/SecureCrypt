@@ -82,17 +82,18 @@ function rsa() {
 
 // ===================== Modular Exponentiation =====================
 
-// Efficiently calculate (base^exp) % mod
-function modPow(base, exp, mod) {
-  let result = 1;
-  base = base % mod; // Take modulo initially
-  while (exp > 0) {
-    if (exp % 2 === 1) result = (result * base) % mod; // If exponent is odd, multiply result
-    exp = Math.floor(exp / 2); // Divide exponent by 2
-    base = (base * base) % mod; // Square the base
+// Efficiently calculate (message^e) % n for RSA encryption
+function modPow(message, e, n) {
+  let cipher = 1;
+  message = message % n; // Take modulo initially
+  while (e > 0) {
+    if (e % 2 === 1) cipher = (cipher * message) % n; // If exponent is odd, multiply cipher
+    e = Math.floor(e / 2); // Divide exponent by 2
+    message = (message * message) % n; // Square the message
   }
-  return result;
+  return cipher;
 }
+
 
 // ===================== Byte Conversion Helpers =====================
 

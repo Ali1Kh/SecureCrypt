@@ -22,64 +22,6 @@ function modInverse(e, phi) {
   return x0 < 0 ? x0 + phi : x0;
 }
 
-// Generate two random prime numbers using LCG (Linear Congruential Generator)
-function generateTwoPrimesFromSeed(seed) {
-  // Constants for LCG
-  const a = 1103515245;
-  const c = 12345;
-  const m = Math.pow(2, 31);
-  let x = seed; // Starting seed
-
-  // Check if a number is prime
-  function isPrime(n) {
-    if (n < 2) return false;
-    for (let i = 2; i <= Math.sqrt(n); i++) {
-      if (n % i === 0) return false;
-    }
-    return true;
-  }
-
-  // LCG function to generate next random number
-  function lcg(seed, a, c, m) {
-    return (a * seed + c) % m;
-  }
-
-  const primes = []; // Array to store found primes
-
-  // Keep generating until we find 2 unique primes
-  while (primes.length < 2) {
-    x = lcg(x, a, c, m); // Generate next random number
-    const possiblePrime = x % 1000; // Keep number small
-    if (isPrime(possiblePrime) && !primes.includes(possiblePrime)) {
-      primes.push(possiblePrime); // Add prime if it's not repeated in the array
-    }
-  }
-
-  return primes; // Return the two primes
-}
-
-// ===================== RSA Key Generation =====================
-
-// Generate RSA public and private keys
-function rsa() {
-  const [p, q] = generateTwoPrimesFromSeed(Date.now()); 
-  const n = p * q;
-  const phi = (p - 1) * (q - 1); // Euler's totient function
-  let e = 19; // Choose a small fixed e
-
-  // Check if 'e' is valid
-  if (e >= phi || gcd(e, phi) !== 1) {
-    throw new Error("Invalid 'e'. It must be less than φ and coprime with it.");
-  }
-
-  const d = modInverse(e, phi); // Find private exponent 'd'
-
-  return {
-    publicKey: [n, e],
-    privateKey: [n, d],
-  };
-}
-
 // ===================== Modular Exponentiation =====================
 
 // Efficiently calculate (message^e) % n for RSA encryption
@@ -133,7 +75,62 @@ function fromBase64(b64) {
   return new Uint8Array([...binaryStr].map((ch) => ch.charCodeAt(0)));
 }
 
-// !===================== Encryption and Decryption =====================
+// !===================== START
+// Generate two primes from a seed
+function generateTwoPrimesFromSeed(seed) {
+  // Constants for LCG
+  const a = 1103515245;
+  const c = 12345;
+  const m = Math.pow(2, 31);
+  let x = seed; // Starting seed
+
+  // Check if a number is prime
+  function isPrime(n) {
+    if (n < 2) return false;
+    for (let i = 2; i <= Math.sqrt(n); i++) {
+      if (n % i === 0) return false;
+    }
+    return true;
+  }
+
+  // LCG function to generate next random number
+  function lcg(seed, a, c, m) {
+    return (a * seed + c) % m;
+  }
+
+  const primes = []; // Array to store found primes
+
+  // Keep generating until we find 2 unique primes
+  while (primes.length < 2) {
+    x = lcg(x, a, c, m); // Generate next random number
+    const possiblePrime = x % 1000; // Keep number small
+    if (isPrime(possiblePrime) && !primes.includes(possiblePrime)) {
+      primes.push(possiblePrime); // Add prime if it's not repeated in the array
+    }
+  }
+
+  return primes; // Return the two primes
+}
+
+// Generate RSA public and private keys
+function rsa() {
+  const [p, q] = generateTwoPrimesFromSeed(Date.now());
+  const n = p * q;
+  const phi = (p - 1) * (q - 1); // Euler's totient function
+  let e = 19; // Choose a small fixed e
+
+  // Check if 'e' is valid
+  if (e >= phi || gcd(e, phi) !== 1) {
+    throw new Error("Invalid 'e'. It must be less than φ and coprime with it.");
+  }
+
+  const d = modInverse(e, phi); // Find private exponent 'd'
+
+  return {
+    publicKey: [n, e],
+    privateKey: [n, d],
+  };
+}
 
 // !Encrypt text and output Base64 encoded ciphertext
 function encryptTextBase64(text, publicKey) {
@@ -169,6 +166,7 @@ function decryptTextBase64(base64Cipher, privateKey) {
   const decoder = new TextDecoder();
   return decoder.decode(Uint8Array.from(decryptedBytes)); // Convert bytes back to text
 }
+// !===================== End
 
 // ===================== Main Logic =====================
 

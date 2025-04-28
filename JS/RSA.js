@@ -1,22 +1,22 @@
 // Calculate GCD (Greatest Common Divisor) using Euclidean Algorithm
 function gcd(a, b) {
   while (b !== 0) {
-    const temp = b;     
-    b = a % b;          
-    a = temp;           
+    const temp = b;
+    b = a % b;
+    a = temp;
   }
-  return a;             
+  return a;
 }
 
 // Find Modular Inverse using Extended Euclidean Algorithm
 function modInverse(e, phi) {
   let [a, b] = [e, phi]; // Initialize a = e, b = phi
-  let [x0, x1] = [1, 0]; 
+  let [x0, x1] = [1, 0];
 
   while (b !== 0) {
-    const q = Math.floor(a / b); 
-    [a, b] = [b, a % b];         
-    [x0, x1] = [x1, x0 - q * x1]; 
+    const q = Math.floor(a / b);
+    [a, b] = [b, a % b];
+    [x0, x1] = [x1, x0 - q * x1];
   }
 
   return x0 < 0 ? x0 + phi : x0;
@@ -48,7 +48,7 @@ function generateTwoPrimesFromSeed(seed) {
 
   // Keep generating until we find 2 unique primes
   while (primes.length < 2) {
-    x = lcg(x, a, c, m);          // Generate next random number
+    x = lcg(x, a, c, m); // Generate next random number
     const possiblePrime = x % 1000; // Keep number small
     if (isPrime(possiblePrime) && !primes.includes(possiblePrime)) {
       primes.push(possiblePrime); // Add prime if it's not repeated in the array
@@ -62,10 +62,10 @@ function generateTwoPrimesFromSeed(seed) {
 
 // Generate RSA public and private keys
 function rsa() {
-  const [p, q] = generateTwoPrimesFromSeed(Date.now()); // Generate two primes using current time
-  const n = p * q;             // n = p * q
+  const [p, q] = generateTwoPrimesFromSeed(Date.now()); 
+  const n = p * q;
   const phi = (p - 1) * (q - 1); // Euler's totient function
-  let e = 19;                  // Choose a small fixed e
+  let e = 19; // Choose a small fixed e
 
   // Check if 'e' is valid
   if (e >= phi || gcd(e, phi) !== 1) {
@@ -75,8 +75,8 @@ function rsa() {
   const d = modInverse(e, phi); // Find private exponent 'd'
 
   return {
-    publicKey: [n, e],    // Public key = (n, e)
-    privateKey: [n, d],   // Private key = (n, d)
+    publicKey: [n, e],
+    privateKey: [n, d],
   };
 }
 
@@ -93,7 +93,6 @@ function modPow(message, e, n) {
   }
   return cipher;
 }
-
 
 // ===================== Byte Conversion Helpers =====================
 
@@ -134,16 +133,16 @@ function fromBase64(b64) {
   return new Uint8Array([...binaryStr].map((ch) => ch.charCodeAt(0)));
 }
 
-// ===================== Encryption and Decryption =====================
+// !===================== Encryption and Decryption =====================
 
-// Encrypt text and output Base64 encoded ciphertext
+// !Encrypt text and output Base64 encoded ciphertext
 function encryptTextBase64(text, publicKey) {
   const [n, e] = publicKey; // Extract public key components
 
   const encoder = new TextEncoder();
   const textBytes = encoder.encode(text); // Encode text to bytes
 
-  const maxBlockSize = 53; // Maximum block size (depends on n)
+  const maxBlockSize = 53;
   if (textBytes.length > maxBlockSize) {
     throw new Error("Input too long. RSA max block size is 53 bytes.");
   }
@@ -158,7 +157,7 @@ function encryptTextBase64(text, publicKey) {
   return toBase64(encryptedBytes); // Return Base64 encoded cipher
 }
 
-// Decrypt Base64 encoded ciphertext back to text
+// !Decrypt Base64 encoded ciphertext back to text
 function decryptTextBase64(base64Cipher, privateKey) {
   const [n, d] = privateKey; // Extract private key components
 
@@ -179,7 +178,7 @@ let { publicKey, privateKey } = rsa();
 // Function called when "Encrypt" button is clicked
 function encrypt() {
   const plainText = document.getElementById("plainText").value.trim(); // Get text from input field
-  const outputField = document.getElementById("encryptOutput");        // Get output field
+  const outputField = document.getElementById("encryptOutput"); // Get output field
   console.log("Done as Standard Key");
   try {
     const encrypted = encryptTextBase64(plainText, publicKey); // Encrypt the text
@@ -192,7 +191,7 @@ function encrypt() {
 // Function called when "Decrypt" button is clicked
 function decrypt() {
   const cipherText = document.getElementById("cipherText").value.trim(); // Get cipher text
-  const outputField = document.getElementById("decryptOutput");         // Get output field
+  const outputField = document.getElementById("decryptOutput"); // Get output field
 
   try {
     const decrypted = decryptTextBase64(cipherText, privateKey); // Decrypt the cipher text
